@@ -199,6 +199,11 @@
                 <version>${vote.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>com.vote</groupId>
+                <artifactId>vote-own</artifactId>
+                <version>4.7.4</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -209,6 +214,7 @@
         <module>vote-quartz</module>
         <module>vote-generator</module>
         <module>vote-common</module>
+        <module>vote-own</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -67,6 +67,11 @@
             <artifactId>vote-generator</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>com.vote</groupId>
+            <artifactId>vote-own</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

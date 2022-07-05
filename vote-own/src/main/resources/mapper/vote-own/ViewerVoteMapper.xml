@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vote.mapper.ViewerVoteMapper">
+    
+    <resultMap type="ViewerVote" id="ViewerVoteResult">
+        <result property="id"    column="id"    />
+        <result property="matchId"    column="match_id"    />
+        <result property="raceSchedule"    column="race_schedule"    />
+        <result property="sessionId"    column="session_id"    />
+        <result property="playerId"    column="player_id"    />
+        <result property="viewerId"    column="viewer_id"    />
+    </resultMap>
+
+    <sql id="selectViewerVoteVo">
+        select id, match_id, race_schedule, session_id, player_id, viewer_id from viewer_vote
+    </sql>
+
+    <select id="selectViewerVoteList" parameterType="ViewerVote" resultMap="ViewerVoteResult">
+        <include refid="selectViewerVoteVo"/>
+        <where>  
+            <if test="matchId != null "> and match_id = #{matchId}</if>
+            <if test="raceSchedule != null "> and race_schedule = #{raceSchedule}</if>
+            <if test="sessionId != null "> and session_id = #{sessionId}</if>
+            <if test="playerId != null "> and player_id = #{playerId}</if>
+            <if test="viewerId != null "> and viewer_id = #{viewerId}</if>
+        </where>
+    </select>
+    
+    <select id="selectViewerVoteById" parameterType="Integer" resultMap="ViewerVoteResult">
+        <include refid="selectViewerVoteVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertViewerVote" parameterType="ViewerVote" useGeneratedKeys="true" keyProperty="id">
+        insert into viewer_vote
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="matchId != null">match_id,</if>
+            <if test="raceSchedule != null">race_schedule,</if>
+            <if test="sessionId != null">session_id,</if>
+            <if test="playerId != null">player_id,</if>
+            <if test="viewerId != null">viewer_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="matchId != null">#{matchId},</if>
+            <if test="raceSchedule != null">#{raceSchedule},</if>
+            <if test="sessionId != null">#{sessionId},</if>
+            <if test="playerId != null">#{playerId},</if>
+            <if test="viewerId != null">#{viewerId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateViewerVote" parameterType="ViewerVote">
+        update viewer_vote
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="matchId != null">match_id = #{matchId},</if>
+            <if test="raceSchedule != null">race_schedule = #{raceSchedule},</if>
+            <if test="sessionId != null">session_id = #{sessionId},</if>
+            <if test="playerId != null">player_id = #{playerId},</if>
+            <if test="viewerId != null">viewer_id = #{viewerId},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteViewerVoteById" parameterType="Integer">
+        delete from viewer_vote where id = #{id}
+    </delete>
+
+    <delete id="deleteViewerVoteByIds" parameterType="String">
+        delete from viewer_vote where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
