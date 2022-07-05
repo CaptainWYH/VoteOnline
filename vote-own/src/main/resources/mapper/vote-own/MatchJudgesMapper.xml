@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vote.mapper.MatchJudgesMapper">
+    
+    <resultMap type="MatchJudges" id="MatchJudgesResult">
+        <result property="matchId"    column="match_id"    />
+        <result property="judgesId"    column="judges_id"    />
+        <result property="raceSchedule"    column="race_schedule"    />
+    </resultMap>
+
+    <sql id="selectMatchJudgesVo">
+        select match_id, judges_id, race_schedule from match_judges
+    </sql>
+
+    <select id="selectMatchJudgesList" parameterType="MatchJudges" resultMap="MatchJudgesResult">
+        <include refid="selectMatchJudgesVo"/>
+        <where>  
+            <if test="matchId != null "> and match_id = #{matchId}</if>
+            <if test="judgesId != null "> and judges_id = #{judgesId}</if>
+            <if test="raceSchedule != null "> and race_schedule = #{raceSchedule}</if>
+        </where>
+    </select>
+    
+    <select id="selectMatchJudgesByMatchId" parameterType="Integer" resultMap="MatchJudgesResult">
+        <include refid="selectMatchJudgesVo"/>
+        where match_id = #{matchId}
+    </select>
+        
+    <insert id="insertMatchJudges" parameterType="MatchJudges">
+        insert into match_judges
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="matchId != null">match_id,</if>
+            <if test="judgesId != null">judges_id,</if>
+            <if test="raceSchedule != null">race_schedule,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="matchId != null">#{matchId},</if>
+            <if test="judgesId != null">#{judgesId},</if>
+            <if test="raceSchedule != null">#{raceSchedule},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMatchJudges" parameterType="MatchJudges">
+        update match_judges
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="judgesId != null">judges_id = #{judgesId},</if>
+            <if test="raceSchedule != null">race_schedule = #{raceSchedule},</if>
+        </trim>
+        where match_id = #{matchId}
+    </update>
+
+    <delete id="deleteMatchJudgesByMatchId" parameterType="Integer">
+        delete from match_judges where match_id = #{matchId}
+    </delete>
+
+    <delete id="deleteMatchJudgesByMatchIds" parameterType="String">
+        delete from match_judges where match_id in 
+        <foreach item="matchId" collection="array" open="(" separator="," close=")">
+            #{matchId}
+        </foreach>
+    </delete>
+
+</mapper>

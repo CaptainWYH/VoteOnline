@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vote.mapper.JudgesPointsMapper">
+    
+    <resultMap type="JudgesPoints" id="JudgesPointsResult">
+        <result property="id"    column="id"    />
+        <result property="matchId"    column="match_id"    />
+        <result property="raceSchedule"    column="race_schedule"    />
+        <result property="sessionId"    column="session_id"    />
+        <result property="judgesId"    column="judges_id"    />
+        <result property="playerId"    column="player_id"    />
+        <result property="points"    column="points"    />
+    </resultMap>
+
+    <sql id="selectJudgesPointsVo">
+        select id, match_id, race_schedule, session_id, judges_id, player_id, points from judges_points
+    </sql>
+
+    <select id="selectJudgesPointsList" parameterType="JudgesPoints" resultMap="JudgesPointsResult">
+        <include refid="selectJudgesPointsVo"/>
+        <where>  
+            <if test="matchId != null "> and match_id = #{matchId}</if>
+            <if test="raceSchedule != null "> and race_schedule = #{raceSchedule}</if>
+            <if test="sessionId != null "> and session_id = #{sessionId}</if>
+            <if test="judgesId != null "> and judges_id = #{judgesId}</if>
+            <if test="playerId != null "> and player_id = #{playerId}</if>
+            <if test="points != null "> and points = #{points}</if>
+        </where>
+    </select>
+    
+    <select id="selectJudgesPointsById" parameterType="Integer" resultMap="JudgesPointsResult">
+        <include refid="selectJudgesPointsVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertJudgesPoints" parameterType="JudgesPoints" useGeneratedKeys="true" keyProperty="id">
+        insert into judges_points
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="matchId != null">match_id,</if>
+            <if test="raceSchedule != null">race_schedule,</if>
+            <if test="sessionId != null">session_id,</if>
+            <if test="judgesId != null">judges_id,</if>
+            <if test="playerId != null">player_id,</if>
+            <if test="points != null">points,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="matchId != null">#{matchId},</if>
+            <if test="raceSchedule != null">#{raceSchedule},</if>
+            <if test="sessionId != null">#{sessionId},</if>
+            <if test="judgesId != null">#{judgesId},</if>
+            <if test="playerId != null">#{playerId},</if>
+            <if test="points != null">#{points},</if>
+         </trim>
+    </insert>
+
+    <update id="updateJudgesPoints" parameterType="JudgesPoints">
+        update judges_points
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="matchId != null">match_id = #{matchId},</if>
+            <if test="raceSchedule != null">race_schedule = #{raceSchedule},</if>
+            <if test="sessionId != null">session_id = #{sessionId},</if>
+            <if test="judgesId != null">judges_id = #{judgesId},</if>
+            <if test="playerId != null">player_id = #{playerId},</if>
+            <if test="points != null">points = #{points},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteJudgesPointsById" parameterType="Integer">
+        delete from judges_points where id = #{id}
+    </delete>
+
+    <delete id="deleteJudgesPointsByIds" parameterType="String">
+        delete from judges_points where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

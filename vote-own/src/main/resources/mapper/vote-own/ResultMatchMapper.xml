@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vote.mapper.ResultMatchMapper">
+    
+    <resultMap type="ResultMatch" id="ResultMatchResult">
+        <result property="id"    column="id"    />
+        <result property="matchId"    column="match_id"    />
+        <result property="raceSchedule"    column="race_schedule"    />
+        <result property="playerId"    column="player_id"    />
+        <result property="judgesScore"    column="judges_score"    />
+        <result property="voteCount"    column="vote_count"    />
+        <result property="percent"    column="percent"    />
+        <result property="finalScore"    column="final_score"    />
+    </resultMap>
+
+    <sql id="selectResultMatchVo">
+        select id, match_id, race_schedule, player_id, judges_score, vote_count, percent, final_score from result_match
+    </sql>
+
+    <select id="selectResultMatchList" parameterType="ResultMatch" resultMap="ResultMatchResult">
+        <include refid="selectResultMatchVo"/>
+        <where>  
+            <if test="matchId != null "> and match_id = #{matchId}</if>
+            <if test="raceSchedule != null "> and race_schedule = #{raceSchedule}</if>
+            <if test="playerId != null "> and player_id = #{playerId}</if>
+            <if test="judgesScore != null "> and judges_score = #{judgesScore}</if>
+            <if test="voteCount != null "> and vote_count = #{voteCount}</if>
+            <if test="percent != null "> and percent = #{percent}</if>
+            <if test="finalScore != null "> and final_score = #{finalScore}</if>
+        </where>
+    </select>
+    
+    <select id="selectResultMatchById" parameterType="Integer" resultMap="ResultMatchResult">
+        <include refid="selectResultMatchVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertResultMatch" parameterType="ResultMatch" useGeneratedKeys="true" keyProperty="id">
+        insert into result_match
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="matchId != null">match_id,</if>
+            <if test="raceSchedule != null">race_schedule,</if>
+            <if test="playerId != null">player_id,</if>
+            <if test="judgesScore != null">judges_score,</if>
+            <if test="voteCount != null">vote_count,</if>
+            <if test="percent != null">percent,</if>
+            <if test="finalScore != null">final_score,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="matchId != null">#{matchId},</if>
+            <if test="raceSchedule != null">#{raceSchedule},</if>
+            <if test="playerId != null">#{playerId},</if>
+            <if test="judgesScore != null">#{judgesScore},</if>
+            <if test="voteCount != null">#{voteCount},</if>
+            <if test="percent != null">#{percent},</if>
+            <if test="finalScore != null">#{finalScore},</if>
+         </trim>
+    </insert>
+
+    <update id="updateResultMatch" parameterType="ResultMatch">
+        update result_match
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="matchId != null">match_id = #{matchId},</if>
+            <if test="raceSchedule != null">race_schedule = #{raceSchedule},</if>
+            <if test="playerId != null">player_id = #{playerId},</if>
+            <if test="judgesScore != null">judges_score = #{judgesScore},</if>
+            <if test="voteCount != null">vote_count = #{voteCount},</if>
+            <if test="percent != null">percent = #{percent},</if>
+            <if test="finalScore != null">final_score = #{finalScore},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteResultMatchById" parameterType="Integer">
+        delete from result_match where id = #{id}
+    </delete>
+
+    <delete id="deleteResultMatchByIds" parameterType="String">
+        delete from result_match where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

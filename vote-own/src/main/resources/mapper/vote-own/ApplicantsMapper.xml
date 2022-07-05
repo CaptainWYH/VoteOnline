@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vote.mapper.ApplicantsMapper">
+    
+    <resultMap type="Applicants" id="ApplicantsResult">
+        <result property="id"    column="id"    />
+        <result property="matchId"    column="match_id"    />
+        <result property="raceSchedule"    column="race_schedule"    />
+        <result property="playerId"    column="player_id"    />
+        <result property="songTitle"    column="song_title"    />
+    </resultMap>
+
+    <sql id="selectApplicantsVo">
+        select id, match_id, race_schedule, player_id, song_title from applicants
+    </sql>
+
+    <select id="selectApplicantsList" parameterType="Applicants" resultMap="ApplicantsResult">
+        <include refid="selectApplicantsVo"/>
+        <where>  
+            <if test="matchId != null "> and match_id = #{matchId}</if>
+            <if test="raceSchedule != null "> and race_schedule = #{raceSchedule}</if>
+            <if test="playerId != null "> and player_id = #{playerId}</if>
+            <if test="songTitle != null  and songTitle != ''"> and song_title = #{songTitle}</if>
+        </where>
+    </select>
+    
+    <select id="selectApplicantsById" parameterType="Integer" resultMap="ApplicantsResult">
+        <include refid="selectApplicantsVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertApplicants" parameterType="Applicants" useGeneratedKeys="true" keyProperty="id">
+        insert into applicants
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="matchId != null">match_id,</if>
+            <if test="raceSchedule != null">race_schedule,</if>
+            <if test="playerId != null">player_id,</if>
+            <if test="songTitle != null and songTitle != ''">song_title,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="matchId != null">#{matchId},</if>
+            <if test="raceSchedule != null">#{raceSchedule},</if>
+            <if test="playerId != null">#{playerId},</if>
+            <if test="songTitle != null and songTitle != ''">#{songTitle},</if>
+         </trim>
+    </insert>
+
+    <update id="updateApplicants" parameterType="Applicants">
+        update applicants
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="matchId != null">match_id = #{matchId},</if>
+            <if test="raceSchedule != null">race_schedule = #{raceSchedule},</if>
+            <if test="playerId != null">player_id = #{playerId},</if>
+            <if test="songTitle != null and songTitle != ''">song_title = #{songTitle},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteApplicantsById" parameterType="Integer">
+        delete from applicants where id = #{id}
+    </delete>
+
+    <delete id="deleteApplicantsByIds" parameterType="String">
+        delete from applicants where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

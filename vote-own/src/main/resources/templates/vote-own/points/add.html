@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('新增评委打分')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-points-add">
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">比赛id：</label>
+                <div class="col-sm-8">
+                    <input name="matchId" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">赛程：</label>
+                <div class="col-sm-8">
+                    <input name="raceSchedule" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">场次id：</label>
+                <div class="col-sm-8">
+                    <input name="sessionId" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">评委id：</label>
+                <div class="col-sm-8">
+                    <input name="judgesId" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">选手id：</label>
+                <div class="col-sm-8">
+                    <input name="playerId" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">评委分数：</label>
+                <div class="col-sm-8">
+                    <input name="points" class="form-control" type="text" required>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var prefix = ctx + "vote-own/points"
+        $("#form-points-add").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/add", $('#form-points-add').serialize());
+            }
+        }
+    </script>
+</body>
+</html>

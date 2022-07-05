@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('新增比赛场次')" />
+    <th:block th:include="include :: datetimepicker-css" />
+    <th:block th:include="include :: datetimepicker-js" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-match_session-add">
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">比赛id：</label>
+                <div class="col-sm-8">
+                    <input name="matchId" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">赛程  1-初赛 2-决赛：</label>
+                <div class="col-sm-8">
+                    <input name="raceSchedule" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">a选手id：</label>
+                <div class="col-sm-8">
+                    <input name="aId" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label is-required">b选手id：</label>
+                <div class="col-sm-8">
+                    <input name="bId" class="form-control" type="text" required>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">开始时间：</label>
+                <div class="col-sm-8">
+                    <div class="input-group date">
+                        <input name="beginTime" class="form-control" placeholder="yyyy-MM-dd HH:mm:ss" type="text">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">结束时间：</label>
+                <div class="col-sm-8">
+                    <div class="input-group date">
+                        <input name="endTime" id="datetimepicker-demo-3" class="form-control" placeholder="yyyy-MM-dd HH:mm:ss" type="text">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">投票是否开启：</label>
+                    <div class="col-sm-9">
+                        <label class="radio-box">
+                            <input type="radio" checked="" value="1" id="optionsRadios1" name="status">开启</label>
+                        <label class="radio-box">
+                            <input type="radio" value="2" id="optionsRadios2" name="status">关闭</label>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <th:block th:include="include :: datetimepicker-js" />
+    <script th:inline="javascript">
+        var prefix = ctx + "vote-own/match_session"
+        $("#form-match_session-add").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/add", $('#form-match_session-add').serialize());
+            }
+        }
+
+        $("input[name='beginTime']").datetimepicker({
+            format: "yyyy-mm-dd hh:ii:ss",
+            // minView: "second",
+            autoclose: true
+        });
+
+        $("input[name='endTime']").datetimepicker({
+            format: "yyyy-mm-dd hh:ii:ss",
+            // minView: "second",
+            autoclose: true
+        });
+    </script>
+</body>
+</html>

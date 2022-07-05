@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vote.mapper.MatchSessionMapper">
+    
+    <resultMap type="MatchSession" id="MatchSessionResult">
+        <result property="id"    column="id"    />
+        <result property="matchId"    column="match_id"    />
+        <result property="raceSchedule"    column="race_schedule"    />
+        <result property="aId"    column="a_id"    />
+        <result property="bId"    column="b_id"    />
+        <result property="beginTime"    column="begin_time"    />
+        <result property="endTime"    column="end_time"    />
+        <result property="status"    column="status"    />
+    </resultMap>
+
+    <sql id="selectMatchSessionVo">
+        select id, match_id, race_schedule, a_id, b_id, begin_time, end_time, status from match_session
+    </sql>
+
+    <select id="selectMatchSessionList" parameterType="MatchSession" resultMap="MatchSessionResult">
+        <include refid="selectMatchSessionVo"/>
+        <where>  
+            <if test="matchId != null "> and match_id = #{matchId}</if>
+            <if test="raceSchedule != null "> and race_schedule = #{raceSchedule}</if>
+            <if test="aId != null "> and a_id = #{aId}</if>
+            <if test="bId != null "> and b_id = #{bId}</if>
+            <if test="beginTime != null "> and begin_time = #{beginTime}</if>
+            <if test="endTime != null "> and end_time = #{endTime}</if>
+            <if test="status != null "> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectMatchSessionById" parameterType="Integer" resultMap="MatchSessionResult">
+        <include refid="selectMatchSessionVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertMatchSession" parameterType="MatchSession" useGeneratedKeys="true" keyProperty="id">
+        insert into match_session
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="matchId != null">match_id,</if>
+            <if test="raceSchedule != null">race_schedule,</if>
+            <if test="aId != null">a_id,</if>
+            <if test="bId != null">b_id,</if>
+            <if test="beginTime != null">begin_time,</if>
+            <if test="endTime != null">end_time,</if>
+            <if test="status != null">status,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="matchId != null">#{matchId},</if>
+            <if test="raceSchedule != null">#{raceSchedule},</if>
+            <if test="aId != null">#{aId},</if>
+            <if test="bId != null">#{bId},</if>
+            <if test="beginTime != null">#{beginTime},</if>
+            <if test="endTime != null">#{endTime},</if>
+            <if test="status != null">#{status},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMatchSession" parameterType="MatchSession">
+        update match_session
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="matchId != null">match_id = #{matchId},</if>
+            <if test="raceSchedule != null">race_schedule = #{raceSchedule},</if>
+            <if test="aId != null">a_id = #{aId},</if>
+            <if test="bId != null">b_id = #{bId},</if>
+            <if test="beginTime != null">begin_time = #{beginTime},</if>
+            <if test="endTime != null">end_time = #{endTime},</if>
+            <if test="status != null">status = #{status},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMatchSessionById" parameterType="Integer">
+        delete from match_session where id = #{id}
+    </delete>
+
+    <delete id="deleteMatchSessionByIds" parameterType="String">
+        delete from match_session where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

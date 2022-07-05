@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vote.mapper.MatchMapper">
+    
+    <resultMap type="com.vote.domain.Match" id="MatchResult">
+        <result property="matchId"    column="match_id"    />
+        <result property="matchName"    column="match_name"    />
+        <result property="matchBeginTime"    column="match_begin_time"    />
+        <result property="matchEndTime"    column="match_end_time"    />
+    </resultMap>
+
+    <sql id="selectMatchVo">
+        select match_id, match_name, match_begin_time, match_end_time from `match`
+    </sql>
+
+    <select id="selectMatchList" parameterType="com.vote.domain.Match" resultMap="MatchResult">
+        <include refid="selectMatchVo"/>
+        <where>  
+            <if test="matchName != null  and matchName != ''"> and match_name like concat('%', #{matchName}, '%')</if>
+            <if test="matchBeginTime != null "> and match_begin_time = #{matchBeginTime}</if>
+            <if test="matchEndTime != null "> and match_end_time = #{matchEndTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectMatchByMatchId" parameterType="Integer" resultMap="MatchResult">
+        <include refid="selectMatchVo"/>
+        where match_id = #{matchId}
+    </select>
+        
+    <insert id="insertMatch" parameterType="com.vote.domain.Match" useGeneratedKeys="true" keyProperty="matchId">
+        insert into `match`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="matchName != null and matchName != ''">match_name,</if>
+            <if test="matchBeginTime != null">match_begin_time,</if>
+            <if test="matchEndTime != null">match_end_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="matchName != null and matchName != ''">#{matchName},</if>
+            <if test="matchBeginTime != null">#{matchBeginTime},</if>
+            <if test="matchEndTime != null">#{matchEndTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMatch" parameterType="com.vote.domain.Match">
+        update `match`
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="matchName != null and matchName != ''">match_name = #{matchName},</if>
+            <if test="matchBeginTime != null">match_begin_time = #{matchBeginTime},</if>
+            <if test="matchEndTime != null">match_end_time = #{matchEndTime},</if>
+        </trim>
+        where match_id = #{matchId}
+    </update>
+
+    <delete id="deleteMatchByMatchId" parameterType="Integer">
+        delete from `match` where match_id = #{matchId}
+    </delete>
+
+    <delete id="deleteMatchByMatchIds" parameterType="String">
+        delete from `match` where match_id in
+        <foreach item="matchId" collection="array" open="(" separator="," close=")">
+            #{matchId}
+        </foreach>
+    </delete>
+
+</mapper>

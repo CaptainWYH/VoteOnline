@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.vote.mapper.SemiFinalsMapper">
+    
+    <resultMap type="SemiFinals" id="SemiFinalsResult">
+        <result property="id"    column="id"    />
+        <result property="matchId"    column="match_id"    />
+        <result property="playerId"    column="player_id"    />
+        <result property="submitTime"    column="submit_time"    />
+        <result property="firstScore"    column="first_score"    />
+    </resultMap>
+
+    <sql id="selectSemiFinalsVo">
+        select id, match_id, player_id, submit_time, first_score from semi_finals
+    </sql>
+
+    <select id="selectSemiFinalsList" parameterType="SemiFinals" resultMap="SemiFinalsResult">
+        <include refid="selectSemiFinalsVo"/>
+        <where>  
+            <if test="matchId != null "> and match_id = #{matchId}</if>
+            <if test="playerId != null "> and player_id = #{playerId}</if>
+            <if test="submitTime != null "> and submit_time = #{submitTime}</if>
+            <if test="firstScore != null "> and first_score = #{firstScore}</if>
+        </where>
+    </select>
+    
+    <select id="selectSemiFinalsById" parameterType="Integer" resultMap="SemiFinalsResult">
+        <include refid="selectSemiFinalsVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSemiFinals" parameterType="SemiFinals" useGeneratedKeys="true" keyProperty="id">
+        insert into semi_finals
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="matchId != null">match_id,</if>
+            <if test="playerId != null">player_id,</if>
+            <if test="submitTime != null">submit_time,</if>
+            <if test="firstScore != null">first_score,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="matchId != null">#{matchId},</if>
+            <if test="playerId != null">#{playerId},</if>
+            <if test="submitTime != null">#{submitTime},</if>
+            <if test="firstScore != null">#{firstScore},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSemiFinals" parameterType="SemiFinals">
+        update semi_finals
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="matchId != null">match_id = #{matchId},</if>
+            <if test="playerId != null">player_id = #{playerId},</if>
+            <if test="submitTime != null">submit_time = #{submitTime},</if>
+            <if test="firstScore != null">first_score = #{firstScore},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteSemiFinalsById" parameterType="Integer">
+        delete from semi_finals where id = #{id}
+    </delete>
+
+    <delete id="deleteSemiFinalsByIds" parameterType="String">
+        delete from semi_finals where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
