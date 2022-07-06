@@ -125,4 +125,20 @@ public class MatchController extends BaseController
     {
         return toAjax(matchService.deleteMatchByMatchIds(ids));
     }
+
+
+    /**
+     * 不需要权限查询所有比赛
+     * @param match
+     * @return
+     */
+    @PostMapping("/app/list")
+    @ResponseBody
+    public TableDataInfo lists(Match match)
+    {
+        startPage();
+        List<Match> list = matchService.selectMatchList(match);
+        System.out.println(list);
+        return getDataTable(list);
+    }
 }

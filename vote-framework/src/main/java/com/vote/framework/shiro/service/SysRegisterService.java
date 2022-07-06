@@ -65,7 +65,7 @@ public class SysRegisterService
         else
         {
             user.setPwdUpdateDate(DateUtils.getNowDate());
-            user.setUserName(loginName);
+//            user.setUserName(loginName);
             user.setSalt(ShiroUtils.randomSalt());
             user.setPassword(passwordService.encryptPassword(user.getLoginName(), user.getPassword(), user.getSalt()));
             boolean regFlag = userService.registerUser(user);

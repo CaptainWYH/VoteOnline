@@ -15,16 +15,18 @@ $.validator.setDefaults({
 
 function register() {
     $.modal.loading($("#btnSubmit").data("loading"));
-    var username = $.common.trim($("input[name='username']").val());
+    var loginname = $.common.trim($("input[name='loginname']").val());
     var password = $.common.trim($("input[name='password']").val());
+    var username = $.common.trim($("input[name='username']").val());
     var validateCode = $("input[name='validateCode']").val();
     $.ajax({
         type: "post",
         url: ctx + "register",
         data: {
-            "loginName": username,
+            "loginName": loginname,
             "password": password,
-            "validateCode": validateCode
+            "validateCode": validateCode,
+            "userName": username
         },
         success: function(r) {
             if (r.code == web_status.SUCCESS) {
@@ -51,7 +53,7 @@ function validateRule() {
     var icon = "<i class='fa fa-times-circle'></i> ";
     $("#registerForm").validate({
         rules: {
-            username: {
+            loginname: {
                 required: true,
                 minlength: 2
             },
@@ -65,7 +67,7 @@ function validateRule() {
             }
         },
         messages: {
-            username: {
+            loginname: {
                 required: icon + "请输入您的用户名",
                 minlength: icon + "用户名不能小于2个字符"
             },
