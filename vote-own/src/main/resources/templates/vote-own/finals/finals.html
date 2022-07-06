@@ -86,7 +86,10 @@
                 },
                 {
                     field: 'submitTime',
-                    title: '发布时间'
+                    title: '发布时间',
+                    formatter : function (value, row, index){
+                        return $.common.dateFormat(row.submitTime,"yyyy-MM-dd HH:mm:ss");
+                    }
                 },
                 {
                     field: 'firstScore',

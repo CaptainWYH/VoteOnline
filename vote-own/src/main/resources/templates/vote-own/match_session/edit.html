@@ -36,7 +36,7 @@
                 <label class="col-sm-3 control-label">开始时间：</label>
                 <div class="col-sm-8">
                     <div class="input-group date">
-                        <input name="beginTime" th:value="${#dates.format(matchSession.beginTime, 'yyyy-MM-dd')}" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                        <input name="beginTime" th:value="${#dates.format(matchSession.beginTime, 'yyyy-MM-dd HH:mm:ss')}" class="form-control" placeholder="yyyy-MM-dd" type="text">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                     </div>
                 </div>
@@ -45,9 +45,18 @@
                 <label class="col-sm-3 control-label">结束时间：</label>
                 <div class="col-sm-8">
                     <div class="input-group date">
-                        <input name="endTime" th:value="${#dates.format(matchSession.endTime, 'yyyy-MM-dd')}" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                        <input name="endTime" th:value="${#dates.format(matchSession.endTime, 'yyyy-MM-dd HH:mm:ss')}" class="form-control" placeholder="yyyy-MM-dd" type="text">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                     </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">投票是否开启：</label>
+                <div class="col-sm-9">
+                    <label class="radio-box">
+                        <input type="radio" checked="" value="1" id="optionsRadios1" name="status">开启</label>
+                    <label class="radio-box">
+                        <input type="radio" value="2" id="optionsRadios2" name="status">关闭</label>
                 </div>
             </div>
         </form>
@@ -67,14 +76,14 @@
         }
 
         $("input[name='beginTime']").datetimepicker({
-            format: "yyyy-mm-dd",
-            minView: "month",
+            format: "yyyy-mm-dd hh:ii:ss",
+            // minView: "month",
             autoclose: true
         });
 
         $("input[name='endTime']").datetimepicker({
-            format: "yyyy-mm-dd",
-            minView: "month",
+            format: "yyyy-mm-dd hh:ii:ss",
+            // minView: "month",
             autoclose: true
         });
     </script>

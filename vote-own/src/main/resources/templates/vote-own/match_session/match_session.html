@@ -102,11 +102,17 @@
                 },
                 {
                     field: 'beginTime',
-                    title: '开始时间'
+                    title: '开始时间',
+                    formatter : function (value, row, index){
+                        return $.common.dateFormat(row.beginTime,"yyyy-MM-dd HH:mm:ss");
+                    }
                 },
                 {
                     field: 'endTime',
-                    title: '结束时间'
+                    title: '结束时间',
+                    formatter : function (value, row, index){
+                        return $.common.dateFormat(row.endTime,"yyyy-MM-dd HH:mm:ss");
+                    }
                 },
                 {
                     field: 'status',

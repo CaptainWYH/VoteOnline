@@ -25,12 +25,12 @@ public class Match extends BaseEntity
     private String matchName;
 
     /** 比赛开始时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Excel(name = "比赛开始时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date matchBeginTime;
 
     /** 比赛截止时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Excel(name = "比赛截止时间", width = 30, dateFormat = "yyyy-MM-dd")
     private Date matchEndTime;
 

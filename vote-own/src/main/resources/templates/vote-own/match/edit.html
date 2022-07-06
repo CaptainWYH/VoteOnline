@@ -18,7 +18,7 @@
                 <label class="col-sm-3 control-label is-required">比赛开始时间：</label>
                 <div class="col-sm-8">
                     <div class="input-group date">
-                        <input name="matchBeginTime" th:value="${#dates.format(match.matchBeginTime, 'yyyy-MM-dd')}" class="form-control" placeholder="yyyy-MM-dd" type="text" required>
+                        <input name="matchBeginTime" th:value="${#dates.format(match.matchBeginTime, 'yyyy-MM-dd HH:mm:ss')}" class="form-control" placeholder="yyyy-MM-dd" type="text" required>
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                     </div>
                 </div>
@@ -27,7 +27,7 @@
                 <label class="col-sm-3 control-label is-required">比赛截止时间：</label>
                 <div class="col-sm-8">
                     <div class="input-group date">
-                        <input name="matchEndTime" th:value="${#dates.format(match.matchEndTime, 'yyyy-MM-dd')}" class="form-control" placeholder="yyyy-MM-dd" type="text" required>
+                        <input name="matchEndTime" th:value="${#dates.format(match.matchEndTime, 'yyyy-MM-dd HH:mm:ss')}" class="form-control" placeholder="yyyy-MM-dd" type="text" required>
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                     </div>
                 </div>
@@ -49,14 +49,14 @@
         }
 
         $("input[name='matchBeginTime']").datetimepicker({
-            format: "yyyy-mm-dd",
-            minView: "month",
+            format: "yyyy-mm-dd hh:ii:ss",
+            // minView: "month",
             autoclose: true
         });
 
         $("input[name='matchEndTime']").datetimepicker({
-            format: "yyyy-mm-dd",
-            minView: "month",
+            format: "yyyy-mm-dd hh:ii:ss",
+            // minView: "month",
             autoclose: true
         });
     </script>

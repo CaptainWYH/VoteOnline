@@ -24,7 +24,7 @@
                 <label class="col-sm-3 control-label is-required">发布时间：</label>
                 <div class="col-sm-8">
                     <div class="input-group date">
-                        <input name="submitTime" th:value="${#dates.format(semiFinals.submitTime, 'yyyy-MM-dd')}" class="form-control" placeholder="yyyy-MM-dd" type="text" required>
+                        <input name="submitTime" th:value="${#dates.format(semiFinals.submitTime, 'yyyy-MM-dd HH:mm:ss')}" class="form-control" placeholder="yyyy-MM-dd" type="text" required>
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                     </div>
                 </div>
@@ -52,8 +52,8 @@
         }
 
         $("input[name='submitTime']").datetimepicker({
-            format: "yyyy-mm-dd",
-            minView: "month",
+            format: "yyyy-mm-dd hh:ii:ss",
+            // minView: "month",
             autoclose: true
         });
     </script>

@@ -78,11 +78,17 @@
                 },
                 {
                     field: 'matchBeginTime',
-                    title: '比赛开始时间'
+                    title: '比赛开始时间',
+                    formatter : function (value, row, index){
+                        return $.common.dateFormat(row.matchBeginTime,"yyyy-MM-dd HH:mm:ss");
+                    }
                 },
                 {
                     field: 'matchEndTime',
-                    title: '比赛截止时间'
+                    title: '比赛截止时间',
+                    formatter : function (value, row, index){
+                        return $.common.dateFormat(row.matchEndTime,"yyyy-MM-dd HH:mm:ss");
+                    }
                 },
                 {
                     title: '操作',

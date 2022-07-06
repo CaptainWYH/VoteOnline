@@ -51,6 +51,7 @@ public class MatchController extends BaseController
     {
         startPage();
         List<Match> list = matchService.selectMatchList(match);
+        System.out.println(list);
         return getDataTable(list);
     }
 
