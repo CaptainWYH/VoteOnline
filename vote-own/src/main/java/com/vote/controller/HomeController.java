@@ -39,9 +39,21 @@ public class HomeController extends BaseController {
         return prefix + "UserHome";
     }
 
+    /**
+     *测试评委主页面
+    **/
     @GetMapping("/jud")
     public String judges(){
         return prefix +"judges";
     }
+
+    /**
+     *测试评委打分详细界面
+    **/
+    @GetMapping("/sco")
+    public String judgesScore(){
+        return prefix +"judscore";
+    }
+
 
 }

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+    <title>评委打分详细界面</title>
+</head>
+<body>
+<div class="container-fluid">
+
+<!--  头部LOGO-->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <img th:src="@{/img/LOGO.png}" class="img-responsive" alt="Responsive image">
+      </div>
+      <div class="col-md-6 pt-5">
+        <img th:src="@{/img/评委主页面.png}" class="img-responsive" alt="Responsive image">
+      </div>
+    </div>
+  </div>
+
+<!--  比赛时间-->
+    <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-8 container" style="font-size: 20px;">
+<!--                    比赛开始时间or结束时间-->
+                    <span>2022-5-4 10:40</span>
+                     ----
+                    <span>2022-5-4 11:40</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-4">
+                    <p><a href="" title="返回主页面">点击这里返回主页</a></p>
+                </div>
+                <div class="col-md-4">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <img alt="Bootstrap Image Preview"  th:src="@{/img/plays1.png}"/>
+                    <div class="">
+                        <input type="text" readOnly="true" class="form-control" id="exampleInputEmail5" value="选手姓名："/>
+                        <input type="text" readOnly="true" class="form-control" id="exampleInputEmail2" value="歌唱曲目："/>
+                        <input type="text" readOnly="true" class="form-control" id="exampleInputEmail3" value="评委评分："/>
+                        <input type="text" class="form-control" id="exampleInputEmail4"
+                               oninput="value=value.replace(/[^\d]/g,'');if(value>100)value=100;if(value.length>3)value=value.slice(0,3);if(value<0)value=0"/>
+                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!--        <div class="col-md-3">-->
+<!--            <img alt="Bootstrap Image Preview"  th:src="@{/img/plays1.png}"/>-->
+<!--            <h5>&nbsp;</h5>-->
+<!--            <input type="text" readOnly="true" class="form-control" id="exampleInputEmail1" value="选手姓名："/>-->
+<!--            <h5>&nbsp;</h5>-->
+<!--            <input type="text" readOnly="true" class="form-control" id="exampleInputEmail1" value="歌唱曲目："/>-->
+<!--            <h5>&nbsp;</h5>-->
+<!--            <div class="row">-->
+<!--                <div class="col-md-4">-->
+<!--                    <input type="text" readOnly="true" class="form-control" id="exampleInputEmail1" value="评委评分："/>-->
+<!--                </div>-->
+<!--                <div class="col-md-5">-->
+<!--                    <input type="text" class="form-control" id="exampleInputEmail1"-->
+<!--                           oninput="value=value.replace(/[^\d]/g,'');if(value>100)value=100;if(value.length>3)value=value.slice(0,3);if(value<0)value=0"/>-->
+<!--                </div>-->
+<!--                <div class="col-md-3">-->
+<!--                    <a href="#" class="btn btn-info btn-md btn-block" type="button">提交</a>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+        <div class="col-md-2">
+            <h3>&nbsp;</h3>
+            <h3>&nbsp;</h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <img alt="Bootstrap Image Preview" th:src="@{/img/vs.png}">
+        </div>
+        <div class="col-md-3">
+            <img th:src="@{/img/plays1.png}" alt="Bootstrap Image Preview" >
+            <h5>&nbsp;</h5>
+            <input type="text" readOnly="true" class="form-control" id="exampleInputEmail1" value="选手姓名："/>
+            <h5>&nbsp;</h5>
+            <input type="text" readOnly="true" class="form-control" id="exampleInputEmail1" value="歌唱曲目："/>
+            <h5>&nbsp;</h5>
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="text" readOnly="true" class="form-control" id="exampleInputEmail1" value="评委评分："/>
+                </div>
+                <div class="col-md-5">
+                    <input type="text" class="form-control" id="exampleInputEmail1"
+                           oninput="value=value.replace(/[^\d]/g,'');if(value>100)value=100;if(value.length>3)value=value.slice(0,3);if(value<0)value=0"/>
+                </div>
+                <div class="col-md-3">
+                    <a href="#" class="btn btn-info btn-md btn-block" type="button">提交</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+    <h4>&nbsp;</h4>
+    <div class="row">
+        <div class="col-md-4">
+        </div>
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-4">
+                </div>
+                <div class="col-md-3">
+                    <button type="submit">上一场</button>
+                </div>
+                <div class="col-md-5">
+                    <button type="submit">下一场</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+
+        </div>
+    </div>
+</div>
+
+
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/scripts.js"></script>
+</html>
