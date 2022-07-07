@@ -1,5 +1,6 @@
 package com.vote.controller;
 
+import com.vote.SignUpDTO;
 import com.vote.common.core.controller.BaseController;
 import com.vote.common.core.domain.AjaxResult;
 import com.vote.common.core.domain.entity.SysUser;
@@ -8,8 +9,11 @@ import com.vote.service.IApplicantsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
 
 /**
  * @author 魏渝辉
@@ -25,16 +29,32 @@ public class SignUpController extends BaseController {
 
     /**
      * 用户进行报名曲目
-     * @param applicants
+     * @param signUpDTO
      * @return
      */
-    @GetMapping("/signUp")
+    @PostMapping("/signUp")
     @ResponseBody
-    public AjaxResult signUp(Applicants applicants){
-        System.out.println("进入报名控制层");
+    public AjaxResult signUp(SignUpDTO signUpDTO){
+        Applicants applicants = new Applicants();
         SysUser sysUser = getSysUser();
-        System.out.println(sysUser);
+        applicants.setMatchId(signUpDTO.getMatchId());
         applicants.setPlayerId(Math.toIntExact(sysUser.getUserId()));
-        return toAjax(applicantsService.insertApplicants(applicants));
+
+        List<Applicants> applicants1 = applicantsService.selectApplicantsList(applicants);
+        if (!applicants1.isEmpty()){
+            return error("您已报名本比赛");
+        }
+
+        //初赛曲目
+        applicants.setSongTitle(signUpDTO.getFirstTitle());
+        applicants.setRaceSchedule(1);
+
+
+        applicantsService.insertApplicants(applicants);
+        //决赛曲目
+        applicants.setSongTitle(signUpDTO.getEndTitle());
+        applicants.setRaceSchedule(2);
+        applicantsService.insertApplicants(applicants);
+        return toAjax(1);
     }
 }
