@@ -12,17 +12,17 @@
 		<div class="container">
 			<div class="row">
 
-				<div class="col-md-4">
+				<div class="col-md-3">
 					<img th:src="@{/img/LOGO.png}" class="img-responsive" alt="Responsive image">
 				</div>
 
-				<div class="col-md-6">
+				<div class="col-md-7">
 					<img th:src="@{/img/主页.png}" class="img-responsive" alt="Responsive image">
 				</div>
 
 			</div>
 		</div>
-		<!-- 轮播图 -->
+
 		<!-- 搜索框 -->
 		<div class="row">
 			<div class="col-md-4"></div>
@@ -42,24 +42,6 @@
 			<div class="col-md-4"></div>
 		</div>
 
-		<!-- 横线 -->
-		<div class="row">
-			<div class="col-md-2"></div>
-			<div class="col-md-8">
-				<ul class="nav nav-tabs" id="myTab" role="tablist">
-					<li class="nav-item">
-						<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
-						   aria-controls="home" aria-selected="true">比赛投票</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link " id="profile-tab" data-toggle="tab" href="#profile" role="tab"
-						   aria-controls="profile" aria-selected="false">比赛报名</a>
-					</li>
-				</ul>
-			</div>
-			<div class="col-md-2">
-
-			</div>
 
 
 
@@ -71,9 +53,9 @@
 						<div class="col-md-2">
 						</div>
 						<div class="col-md-8">
-							<div class="row">
+							<div class="row pt-3">
 
-								<div class="col-4" th:each="row : ${dataTable.rows}">
+								<div class="col-4 pt-3" th:each="row : ${dataTable.rows}">
 									<div class="card">
 										<img class="card-img-top" alt="Bootstrap Thumbnail Second"
 											 th:src="@{/img/GA5W1Q69%5B~EA%7B998)YJ6M2E.jpg}" />
@@ -88,14 +70,19 @@
 												<p class="card-text">
 													结束时间：<span th:text="${#dates.format(row.matchEndTime,'yyyy-MM-dd HH:mm:ss')}"></span>
 												</p>
-
 											</div>
-
 											<div class="pt-3">
-												<a class="btn btn-primary" href="#">去投票</a>
+												<div class="row pb-3">
+													<div class="col-6">
+														<a class="btn btn-primary btn-block "  href="#" >投票</a>
+													</div>
+													<div class="col-6">
+														<a class="btn btn-primary  btn-block" data-toggle="modal" data-target="#myModal" href="#">报名</a>
+													</div>
+
+												</div>
 											</div>
 										</div>
-
 									</div>
 								</div>
 							</div>
@@ -105,6 +92,36 @@
 				</div>
 			</div>
 		</div>
+
+
+			<!-- Modal -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabel">报名信息</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="exampleInputName2">初赛曲目</label>
+								<input type="text" class="form-control" id="exampleInputName2" placeholder="请输入初赛曲目">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputName1">复赛曲目</label>
+								<input type="text" class="form-control" id="exampleInputName1" placeholder="请输入复赛曲目">
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">取消报名</button>
+							<button type="button" class="btn btn-primary">报名</button>
+						</div>
+					</div>
+				</div>
+			</div>
 
 		<!-- 分页栏 -->
 		<div class="container-fluid">
