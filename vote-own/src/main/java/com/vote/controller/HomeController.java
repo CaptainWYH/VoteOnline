@@ -55,5 +55,12 @@ public class HomeController extends BaseController {
         return prefix +"judscore";
     }
 
+    /**
+     *测试观众投票详细界面
+    **/
+    @GetMapping("/vot")
+    public String audiencevote(){
+        return prefix +"audiencevote";
+    }
 
 }
