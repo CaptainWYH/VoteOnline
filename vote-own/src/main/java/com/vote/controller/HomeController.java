@@ -38,4 +38,10 @@ public class HomeController extends BaseController {
         System.out.println("home");
         return prefix + "UserHome";
     }
+
+    @GetMapping("/jud")
+    public String judges(){
+        return prefix +"judges";
+    }
+
 }

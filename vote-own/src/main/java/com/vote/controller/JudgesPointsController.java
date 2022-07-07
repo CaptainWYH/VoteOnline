@@ -124,4 +124,6 @@ public class JudgesPointsController extends BaseController
     {
         return toAjax(judgesPointsService.deleteJudgesPointsByIds(ids));
     }
+
+
 }
