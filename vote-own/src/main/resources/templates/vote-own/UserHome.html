@@ -72,95 +72,21 @@
 						</div>
 						<div class="col-md-8">
 							<div class="row">
-								<div class="col-4">
+
+								<div class="col-4" th:each="row : ${dataTable.rows}">
 									<div class="card">
 										<img class="card-img-top" alt="Bootstrap Thumbnail Second"
 											 th:src="@{/img/GA5W1Q69%5B~EA%7B998)YJ6M2E.jpg}" />
 										<div class="container">
 											<div class="card-block">
-												<h5 class="card-title">
+												<h5 class="card-title" th:text="${row.matchName}">
 													第一届歌唱大赛（初赛）
 												</h5>
 												<p class="card-text">
-													开始时间：
+													开始时间：<span th:text="${#dates.format(row.matchBeginTime,'yyyy-MM-dd HH:mm:ss')}"></span>
 												</p>
 												<p class="card-text">
-													结束时间：
-												</p>
-
-											</div>
-
-											<div class="pt-3">
-												<a class="btn btn-primary" href="#">去投票</a>
-											</div>
-										</div>
-
-									</div>
-								</div>
-								<div class="col-4">
-									<div class="card">
-										<img class="card-img-top" alt="Bootstrap Thumbnail Second"
-											 th:src="@{/img/GA5W1Q69%5B~EA%7B998)YJ6M2E.jpg}" />
-										<div class="container">
-											<div class="card-block">
-												<h5 class="card-title">
-													第一届歌唱大赛（初赛）
-												</h5>
-												<p class="card-text">
-													开始时间：
-												</p>
-												<p class="card-text">
-													结束时间：
-												</p>
-
-											</div>
-
-											<div class="pt-3">
-												<a class="btn btn-primary" href="#">去投票</a>
-											</div>
-										</div>
-
-									</div>
-								</div>
-								<div class="col-4">
-									<div class="card">
-										<img class="card-img-top" alt="Bootstrap Thumbnail Second"
-											 th:src="@{/img/GA5W1Q69%5B~EA%7B998)YJ6M2E.jpg}" />
-										<div class="container">
-											<div class="card-block">
-												<h5 class="card-title">
-													第一届歌唱大赛（初赛）
-												</h5>
-												<p class="card-text">
-													开始时间：
-												</p>
-												<p class="card-text">
-													结束时间：
-												</p>
-
-											</div>
-
-											<div class="pt-3">
-												<a class="btn btn-primary" href="#">去投票</a>
-											</div>
-										</div>
-
-									</div>
-								</div>
-								<div class="col-4">
-									<div class="card">
-										<img class="card-img-top" alt="Bootstrap Thumbnail Second"
-											 th:src="@{/img/GA5W1Q69%5B~EA%7B998)YJ6M2E.jpg}" />
-										<div class="container">
-											<div class="card-block">
-												<h5 class="card-title">
-													第一届歌唱大赛（初赛）
-												</h5>
-												<p class="card-text">
-													开始时间：
-												</p>
-												<p class="card-text">
-													结束时间：
+													结束时间：<span th:text="${#dates.format(row.matchEndTime,'yyyy-MM-dd HH:mm:ss')}"></span>
 												</p>
 
 											</div>
