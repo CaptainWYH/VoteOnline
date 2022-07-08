@@ -7,6 +7,7 @@ import com.vote.common.core.controller.BaseController;
 import com.vote.common.core.page.TableDataInfo;
 import com.vote.domain.Match;
 import com.vote.service.IMatchService;
+import com.vote.service.IMatchSessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -29,6 +30,10 @@ public class HomeController extends BaseController {
 
     @Autowired
     private IMatchService matchService;
+
+
+    @Autowired
+    private IMatchSessionService matchSessionService;
 
     @GetMapping("/system/home/{pageNum}")
     public String home(@PathVariable("pageNum")Integer pageNum, ModelMap mmap)
@@ -56,7 +61,7 @@ public class HomeController extends BaseController {
     /**
      *测试评委打分详细界面
     **/
-    @GetMapping("/sco")
+    @GetMapping("/scoPage")
     public String judgesScore(){
         return prefix +"judscore";
     }
@@ -64,8 +69,10 @@ public class HomeController extends BaseController {
     /**
      *测试观众投票详细界面
     **/
-    @GetMapping("/vot")
-    public String audiencevote(){
+    @GetMapping("/votPage/{pageNum}")
+    public String audiencevote(@PathVariable("pageNum")Integer pageNum,ModelMap map){
+
+
         return prefix +"audiencevote";
     }
 
