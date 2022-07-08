@@ -30,7 +30,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectApplicantsVo"/>
         where id = #{id}
     </select>
-        
+    <select id="selectNotDistribute" resultType="java.lang.Integer">
+        SELECT DISTINCT a.player_id FROM applicants a WHERE a.player_id NOT IN (SELECT m.a_id FROM match_session m WHERE m.`match_id` = #{matchId} AND m.race_schedule = #{raceSchedule})
+                                                        AND a.player_id NOT IN (SELECT m.b_id FROM match_session m WHERE m.`match_id` = #{matchId} AND m.race_schedule = #{raceSchedule})
+    </select>
+
     <insert id="insertApplicants" parameterType="Applicants" useGeneratedKeys="true" keyProperty="id">
         insert into applicants
         <trim prefix="(" suffix=")" suffixOverrides=",">

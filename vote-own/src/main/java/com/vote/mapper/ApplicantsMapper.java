@@ -2,6 +2,7 @@ package com.vote.mapper;
 
 import java.util.List;
 import com.vote.domain.Applicants;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 曲目信息Mapper接口
@@ -58,4 +59,12 @@ public interface ApplicantsMapper
      * @return 结果
      */
     public int deleteApplicantsByIds(String[] ids);
+
+    /**
+     * 查询未被分配的选手
+     * @param matchId
+     * @param raceSchedule
+     * @return
+     */
+    public List<Integer> selectNotDistribute(@Param("matchId") Integer matchId, @Param("raceSchedule") Integer raceSchedule);
 }
