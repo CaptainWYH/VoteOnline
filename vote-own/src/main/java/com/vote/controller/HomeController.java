@@ -63,4 +63,12 @@ public class HomeController extends BaseController {
         return prefix +"audiencevote";
     }
 
+    /**
+     *测试比赛结果详细界面
+     **/
+    @GetMapping("/res")
+    public String competitionResults(){
+        return prefix +"competitionResults";
+    }
+
 }
