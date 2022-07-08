@@ -56,6 +56,9 @@
                 <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="vote-own:match_session:export">
                     <i class="fa fa-download"></i> 导出
                 </a>
+                <a class="btn btn-default" onclick="$.modal.open('AAA','/vote-own/match_session/edit/1',200,400,aaa)" shiro:hasPermission="vote-own:match_session:export">
+                    <i class="fa fa-download"></i> 自动分配场次
+                </a>
             </div>
             <div class="col-sm-12 select-table table-striped">
                 <table id="bootstrap-table"></table>
@@ -67,7 +70,9 @@
         var editFlag = [[${@permission.hasPermi('vote-own:match_session:edit')}]];
         var removeFlag = [[${@permission.hasPermi('vote-own:match_session:remove')}]];
         var prefix = ctx + "vote-own/match_session";
-
+        function aaa(){
+            console.log(111111111)
+        }
         $(function() {
             var options = {
                 url: prefix + "/list",

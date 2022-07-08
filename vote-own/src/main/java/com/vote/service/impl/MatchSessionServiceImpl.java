@@ -1,6 +1,9 @@
 package com.vote.service.impl;
 
+import java.util.Collections;
 import java.util.List;
+
+import com.vote.mapper.ApplicantsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.vote.mapper.MatchSessionMapper;
@@ -19,6 +22,9 @@ public class MatchSessionServiceImpl implements IMatchSessionService
 {
     @Autowired
     private MatchSessionMapper matchSessionMapper;
+
+    @Autowired
+    private ApplicantsMapper applicantsMapper;
 
     /**
      * 查询比赛场次
@@ -90,5 +96,33 @@ public class MatchSessionServiceImpl implements IMatchSessionService
     public int deleteMatchSessionById(Integer id)
     {
         return matchSessionMapper.deleteMatchSessionById(id);
+    }
+
+    @Override
+    public int autoDistribute(Integer matchId, Integer raceSchedule) {
+        //查询出未被分配的选手
+        List<Integer> playerIds = applicantsMapper.selectNotDistribute(matchId, raceSchedule);
+        //打乱排序
+        Collections.shuffle(playerIds);
+
+        MatchSession matchSession = new MatchSession();
+        matchSession.setMatchId(matchId);
+        matchSession.setRaceSchedule(raceSchedule);
+        //开始自动分配
+        while(!playerIds.isEmpty()){
+            Integer player1 = playerIds.get(0);
+            playerIds.remove(0);
+            //第二个可能为空需要判断
+            Integer player2 = null;
+            if (!playerIds.isEmpty()){
+                player2 = playerIds.get(0);
+                playerIds.remove(0);
+            }
+            //写入数据库
+            matchSession.setaId(player1);
+            matchSession.setbId(player2);
+            matchSessionMapper.insertMatchSession(matchSession);
+        }
+        return 0;
     }
 }

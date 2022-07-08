@@ -58,4 +58,13 @@ public interface IMatchSessionService
      * @return 结果
      */
     public int deleteMatchSessionById(Integer id);
+
+
+    /**
+     * 自动配分场次
+     * @param matchId
+     * @param raceSchedule
+     * @return
+     */
+    public int autoDistribute(Integer matchId,Integer raceSchedule);
 }

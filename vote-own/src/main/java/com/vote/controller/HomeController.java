@@ -1,5 +1,7 @@
 package com.vote.controller;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.vote.common.config.RuoYiConfig;
 import com.vote.common.core.controller.BaseController;
 import com.vote.common.core.page.TableDataInfo;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
@@ -27,15 +30,18 @@ public class HomeController extends BaseController {
     @Autowired
     private IMatchService matchService;
 
-    @GetMapping("/system/home")
-    public String home(ModelMap mmap)
+    @GetMapping("/system/home/{pageNum}")
+    public String home(@PathVariable("pageNum")Integer pageNum, ModelMap mmap)
     {
         Match match = new Match();
+        PageHelper.startPage(pageNum,6);
         List<Match> list = matchService.selectMatchList(match);
-
         TableDataInfo dataTable = getDataTable(list);
+        System.out.println(dataTable);
+        PageInfo<Match> page = new PageInfo<>(list,5);
         mmap.put("dataTable", dataTable);
-        System.out.println("home");
+        mmap.put("pages", page);
+        System.out.println(page);
         return prefix + "UserHome";
     }
 
