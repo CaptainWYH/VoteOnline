@@ -54,6 +54,38 @@ public class MatchSessionsVO {
      */
     private String bName;
 
+    public String getaName() {
+        return aName;
+    }
+
+    public void setaName(String aName) {
+        this.aName = aName;
+    }
+
+    public String getaTitle() {
+        return aTitle;
+    }
+
+    public void setaTitle(String aTitle) {
+        this.aTitle = aTitle;
+    }
+
+    public String getbTitle() {
+        return bTitle;
+    }
+
+    public void setbTitle(String bTitle) {
+        this.bTitle = bTitle;
+    }
+
+    public String getbName() {
+        return bName;
+    }
+
+    public void setbName(String bName) {
+        this.bName = bName;
+    }
+
     /** 开始时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Excel(name = "开始时间", width = 30, dateFormat = "yyyy-MM-dd")
@@ -150,7 +182,9 @@ public class MatchSessionsVO {
                 .append("matchId", getMatchId())
                 .append("raceSchedule", getRaceSchedule())
                 .append("aId", getaId())
+                .append("aName",getaName())
                 .append("bId", getbId())
+                .append("bName",getbName())
                 .append("beginTime", getBeginTime())
                 .append("endTime", getEndTime())
                 .append("status", getStatus())

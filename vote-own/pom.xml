@@ -22,6 +22,10 @@
             <artifactId>vote-common</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.vote</groupId>
+            <artifactId>vote-system</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>4.5.13</version>

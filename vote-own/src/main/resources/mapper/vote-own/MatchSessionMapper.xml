@@ -15,6 +15,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="status"    column="status"    />
     </resultMap>
 
+    <resultMap type="com.vote.MatchSessionsVO" id="MatchSessionVOResult">
+        <result property="id"    column="id"    />
+        <result property="matchId"    column="match_id"    />
+        <result property="raceSchedule"    column="race_schedule"    />
+        <result property="aId"    column="a_id"    />
+        <result property="bId"    column="b_id"    />
+        <result property="beginTime"    column="begin_time"    />
+        <result property="endTime"    column="end_time"    />
+        <result property="status"    column="status"    />
+    </resultMap>
+
     <sql id="selectMatchSessionVo">
         select id, match_id, race_schedule, a_id, b_id, begin_time, end_time, status from match_session
     </sql>
@@ -36,7 +47,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectMatchSessionVo"/>
         where id = #{id}
     </select>
-        
+
+
+    <select id="selectMatchSessions" parameterType="MatchSession" resultMap="MatchSessionVOResult">
+        <include refid="selectMatchSessionVo"/>
+        <where>
+            <if test="matchId != null "> and match_id = #{matchId}</if>
+            <if test="raceSchedule != null "> and race_schedule = #{raceSchedule}</if>
+            <if test="aId != null "> and a_id = #{aId}</if>
+            <if test="bId != null "> and b_id = #{bId}</if>
+            <if test="beginTime != null "> and begin_time = #{beginTime}</if>
+            <if test="endTime != null "> and end_time = #{endTime}</if>
+            <if test="status != null "> and status = #{status}</if>
+        </where>
+    </select>
+
     <insert id="insertMatchSession" parameterType="MatchSession" useGeneratedKeys="true" keyProperty="id">
         insert into match_session
         <trim prefix="(" suffix=")" suffixOverrides=",">

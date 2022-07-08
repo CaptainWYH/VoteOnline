@@ -1,6 +1,8 @@
 package com.vote.mapper;
 
 import java.util.List;
+
+import com.vote.MatchSessionsVO;
 import com.vote.domain.MatchSession;
 
 /**
@@ -58,4 +60,7 @@ public interface MatchSessionMapper
      * @return 结果
      */
     public int deleteMatchSessionByIds(String[] ids);
+
+    public List<MatchSessionsVO> selectMatchSessions(MatchSession matchSession);
+
 }

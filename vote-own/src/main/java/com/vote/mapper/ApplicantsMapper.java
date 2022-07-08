@@ -67,4 +67,12 @@ public interface ApplicantsMapper
      * @return
      */
     public List<Integer> selectNotDistribute(@Param("matchId") Integer matchId, @Param("raceSchedule") Integer raceSchedule);
+
+    /**
+     * 通过比赛id   赛程   选手id 查询曲目名称
+     * @param applicants
+     * @return
+     */
+    public String selectTitleByApplicants(Applicants applicants);
+
 }

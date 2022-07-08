@@ -2,10 +2,12 @@ package com.vote.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.vote.MatchSessionsVO;
 import com.vote.common.config.RuoYiConfig;
 import com.vote.common.core.controller.BaseController;
 import com.vote.common.core.page.TableDataInfo;
 import com.vote.domain.Match;
+import com.vote.domain.MatchSession;
 import com.vote.service.IMatchService;
 import com.vote.service.IMatchSessionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,6 @@ public class HomeController extends BaseController {
 
     @Autowired
     private IMatchService matchService;
-
 
     @Autowired
     private IMatchSessionService matchSessionService;
@@ -70,9 +71,13 @@ public class HomeController extends BaseController {
      *测试观众投票详细界面
     **/
     @GetMapping("/votPage/{pageNum}")
-    public String audiencevote(@PathVariable("pageNum")Integer pageNum,ModelMap map){
+    public String audiencevote(@PathVariable("pageNum")Integer pageNum, MatchSession matchSession, ModelMap map){
 
-
+        PageHelper.startPage(pageNum,1);
+        List<MatchSessionsVO> matchSessionsVOS = matchSessionService.selectMatchSessions(matchSession);
+        PageInfo<MatchSessionsVO> pages = new PageInfo<>(matchSessionsVOS);
+        System.out.println(pages);
+        map.put("pages",pages);
         return prefix +"audiencevote";
     }
 
