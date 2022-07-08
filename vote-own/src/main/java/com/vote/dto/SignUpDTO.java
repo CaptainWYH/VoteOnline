@@ -1,4 +1,4 @@
-package com.vote;
+package com.vote.dto;
 
 /**
  * @author 魏渝辉
