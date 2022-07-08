@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+    <title>观众投票详细界面</title>
+</head>
+<body>
+<div class="container-fluid">
+
+    <!--  头部LOGO-->
+    <div class="container" style="padding-bottom: 50px">
+        <div class="row">
+            <div class="col-md-4">
+                <img th:src="@{/img/LOGO.png}" class="img-responsive" alt="Responsive image">
+            </div>
+            <div class="col-md-6 pt-5">
+                <img th:src="@{/img/audiencevote.png}" class="img-responsive" alt="Responsive image" style="height: 120px">
+            </div>
+        </div>
+    </div>
+    <!--    PK部分-->
+    <div class="row" style="padding: 0 10%">
+        <!--    选手A-->
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <img alt="Bootstrap Image Preview"  th:src="@{/img/plays1.png}"/>
+                <div class="caption">
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <input type="text" readOnly="true" class="form-control" value="选手姓名：" style="width: 80px"/>
+                        </div>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control " readOnly="true"
+                                   style="width: 100%;display:inline-block;"/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <input type="text" readOnly="true" class="form-control" value="歌唱曲目："
+                                   style="margin-top: 10px;width: 80px"/>
+                        </div>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control " readOnly="true"
+                                   style="margin-top: 10px;width: 100%;display:inline-block;"/>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 10px">
+                        <div class="col-md-12 container">
+                            <p><a href="#" class="btn btn-primary btn-block" role="button">投他一票</a></p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 container" style="display: flex;justify-content: center;align-items: center;flex-wrap: wrap">
+            <div class="row" >
+                <!--        PK图片-->
+                <img alt="Bootstrap Image Preview" th:src="@{/img/vs.png}" >
+            </div>
+
+            <div class="row" style="width: 100%;height: 25%;display: flex;justify-content: center;align-items: center;flex-wrap: wrap;font-size: 20px">
+                <div class="text-success">开始时间:<span >2022-5-4 10:40</span></div>
+
+                <div class="text-danger">结束时间:<span>2022-5-4 11:40</span></div>
+            </div>
+        </div>
+
+        <!--选手B-->
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+                <img alt="Bootstrap Image Preview"  th:src="@{/img/plays1.png}"/>
+                <div class="caption">
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <input type="text" readOnly="true" class="form-control" value="选手姓名：" style="width: 80px"/>
+                        </div>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control " readOnly="true"
+                                   style="width: 100%;display:inline-block;"/>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <input type="text" readOnly="true" class="form-control" value="歌唱曲目："
+                                   style="margin-top: 10px;width: 80px"/>
+                        </div>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control " readOnly="true"
+                                   style="margin-top: 10px;width: 100%;display:inline-block;"/>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 10px">
+                        <div class="col-md-12 container">
+                            <p><a href="#" class="btn btn-primary btn-block" role="button">投他一票</a></p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--    上一场or下一场-->
+    <div class="row" style="padding-top: 10px">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-3"></div>
+
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary">上一场</button>
+                </div>
+                <div class="col-md-5">
+                    <button type="submit" class="btn btn-primary">下一场</button>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+</div>
+
+
+</body>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
+</html>
