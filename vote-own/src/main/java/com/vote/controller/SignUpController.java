@@ -1,6 +1,6 @@
 package com.vote.controller;
 
-import com.vote.SignUpDTO;
+import com.vote.dto.SignUpDTO;
 import com.vote.common.core.controller.BaseController;
 import com.vote.common.core.domain.AjaxResult;
 import com.vote.common.core.domain.entity.SysUser;
@@ -8,8 +8,6 @@ import com.vote.domain.Applicants;
 import com.vote.service.IApplicantsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
