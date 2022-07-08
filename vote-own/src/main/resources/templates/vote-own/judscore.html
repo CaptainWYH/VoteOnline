@@ -29,24 +29,46 @@
                 <img alt="Bootstrap Image Preview" th:src="@{/img/plays1.png}"/>
                 <div class="caption">
 
-                    <input type="text" readOnly="true" class="form-control" id="exampleInputEmail2" value="选手姓名："/>
-
-                    <input type="text" readOnly="true" class="form-control" id="exampleInputEmail3" value="歌唱曲目："
-                           style="margin-top: 10px">
-                    <span> </span>
-                    </input>
-                    <div class="row" style="margin-top: 10px">
-                        <div class="col-md-9">
-                            <input type="text" readOnly="true" class="form-control" id="exampleInputEmail4"
-                                   value="评委评分：" style="display:inline-block;width: 80px"/>
-                            <input type="text" class="form-control " id="exampleInputEmail5"
-                                   style="width: 170px;display:inline-block;"
-                                   oninput="value=value.replace(/[^\d]/g,'');if(value>100)value=100;if(value.length>3)value=value.slice(0,3);if(value<0)value=0"/>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <input type="text" readOnly="true" class="form-control"  value="选手姓名：" style="width: 80px"/>
                         </div>
-                        <div class="col-md-3">
-                            <p><a href="#" class="btn btn-primary btn-block" role="button">提交</a></p>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control " readOnly="true"
+                                   style="width: 100%;display:inline-block;"/>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <input type="text" readOnly="true" class="form-control"  value="歌唱曲目："
+                                   style="margin-top: 10px;width: 80px"/>
+                        </div>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control " readOnly="true"
+                                   style="margin-top: 10px;width: 100%;display:inline-block;"/>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 10px">
+                        <div class="col-md-2">
+                            <input type="text" readOnly="true" class="form-control"
+                                   value="评委评分：" style="display:inline-block;width: 80px"/>
+                        </div>
+
+                        <div class="col-md-10">
+                            <input type="text" class="form-control "
+                                   style="width: 100%;display:inline-block;"
+                                   oninput="value=value.replace(/[^\d]/g,'');if(value>100)value=100;if(value.length>3)value=value.slice(0,3);if(value<0)value=0"/>
+
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px">
+                        <div class="col-md-12 container">
+                            <p><a href="#" class="btn btn-primary btn-block" role="button" >提交</a></p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -70,21 +92,47 @@
             <div class="thumbnail">
                 <img alt="Bootstrap Image Preview" th:src="@{/img/plays1.png}"/>
                 <div class="caption">
-                    <input type="text" readOnly="true" class="form-control" id="exampleInputEmail1" value="选手姓名："/>
-                    <input type="text" readOnly="true" class="form-control" id="exampleInputEmail6" value="歌唱曲目："
-                           style="margin-top: 10px"/>
-                    <div class="row" style="margin-top: 10px">
-                        <div class="col-md-9">
-                            <input type="text" readOnly="true" class="form-control" id="exampleInputEmail8"
-                                   value="评委评分：" style="display:inline-block;width: 80px"/>
-                            <input type="text" class="form-control " id="exampleInputEmail7"
-                                   style="width: 170px;display:inline-block;"
-                                   oninput="value=value.replace(/[^\d]/g,'');if(value>100)value=100;if(value.length>3)value=value.slice(0,3);if(value<0)value=0"/>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <input type="text" readOnly="true" class="form-control"  value="选手姓名：" style="width: 80px"/>
                         </div>
-                        <div class="col-md-3">
-                            <p><a href="#" class="btn btn-primary btn-block" role="button">提交</a></p>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control " readOnly="true"
+                                   style="width: 100%;display:inline-block;"/>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <input type="text" readOnly="true" class="form-control"  value="歌唱曲目："
+                                   style="margin-top: 10px;width: 80px"/>
+                        </div>
+                        <div class="col-md-10">
+                            <input type="text" class="form-control " readOnly="true"
+                                   style="margin-top: 10px;width: 100%;display:inline-block;"/>
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 10px">
+                        <div class="col-md-2">
+                            <input type="text" readOnly="true" class="form-control"
+                                   value="评委评分：" style="display:inline-block;width: 80px"/>
+                        </div>
+
+                        <div class="col-md-10">
+                            <input type="text" class="form-control "
+                                   style="width: 100%;display:inline-block;"
+                                   oninput="value=value.replace(/[^\d]/g,'');if(value>100)value=100;if(value.length>3)value=value.slice(0,3);if(value<0)value=0"/>
+
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 10px">
+                        <div class="col-md-12 container">
+                            <p><a href="#" class="btn btn-primary btn-block" role="button" >提交</a></p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
