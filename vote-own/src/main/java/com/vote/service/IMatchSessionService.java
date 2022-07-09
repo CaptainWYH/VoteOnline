@@ -71,7 +71,7 @@ public interface IMatchSessionService
     public int autoDistribute(Integer matchId,Integer raceSchedule);
 
     /**
-     * 查询场次
+     * 查询场次   通过比赛id  赛程
      * @param matchSession
      * @return
      */

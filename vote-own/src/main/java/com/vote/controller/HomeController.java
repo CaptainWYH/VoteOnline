@@ -70,12 +70,17 @@ public class HomeController extends BaseController {
     /**
      *测试观众投票详细界面
     **/
-    @GetMapping("/votPage/{pageNum}")
-    public String audiencevote(@PathVariable("pageNum")Integer pageNum, MatchSession matchSession, ModelMap map){
-
+    @GetMapping("/votPage/{pageNum}/{matchId}/{raceSchedule}")
+    public String audiencevote(@PathVariable("pageNum")Integer pageNum,
+                               @PathVariable("matchId")Integer matchId,
+                               @PathVariable("raceSchedule")Integer raceSchedule,ModelMap map){
+        MatchSession matchSession = new MatchSession();
+        matchSession.setMatchId(matchId);
+        matchSession.setRaceSchedule(raceSchedule);
+        System.out.println("matchSession:" + matchSession);
         PageHelper.startPage(pageNum,1);
         List<MatchSessionsVO> matchSessionsVOS = matchSessionService.selectMatchSessions(matchSession);
-        PageInfo<MatchSessionsVO> pages = new PageInfo<>(matchSessionsVOS);
+        PageInfo<MatchSessionsVO> pages = new PageInfo<>(matchSessionsVOS,2);
         System.out.println(pages);
         map.put("pages",pages);
         return prefix +"audiencevote";

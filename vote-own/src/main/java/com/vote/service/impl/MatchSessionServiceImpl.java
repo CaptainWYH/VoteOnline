@@ -145,23 +145,23 @@ public class MatchSessionServiceImpl implements IMatchSessionService
             Integer aId = session.getaId();
             Integer bId = session.getbId();
 
-            SysUser aUser = sysUserMapper.selectUserById(Long.valueOf(aId));
-            SysUser bUser = sysUserMapper.selectUserById(Long.valueOf(bId));
+            if(null != aId){
+                SysUser aUser = sysUserMapper.selectUserById(Long.valueOf(aId));
+                String aName = aUser.getUserName();
+                applicants.setPlayerId(aId);
+                String aTitle = applicantsMapper.selectTitleByApplicants(applicants);
+                session.setaTitle(aTitle);
+                session.setaName(aName);
 
-            applicants.setPlayerId(aId);
-            String aTitle = applicantsMapper.selectTitleByApplicants(applicants);
-
-            applicants.setPlayerId(bId);
-            String bTitle = applicantsMapper.selectTitleByApplicants(applicants);
-            String aName = aUser.getUserName();
-            String bName = bUser.getUserName();
-
-
-            session.setaName(aName);
-            session.setbName(bName);
-
-            session.setaTitle(aTitle);
-            session.setbTitle(bTitle);
+            }
+            if (null != bId){
+                SysUser bUser = sysUserMapper.selectUserById(Long.valueOf(bId));
+                applicants.setPlayerId(bId);
+                String bTitle = applicantsMapper.selectTitleByApplicants(applicants);
+                String bName = bUser.getUserName();
+                session.setbName(bName);
+                session.setbTitle(bTitle);
+            }
         }
         return matchSessions;
     }
