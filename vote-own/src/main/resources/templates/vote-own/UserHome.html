@@ -63,22 +63,32 @@
 										<div class="container">
 											<div class="card-block">
 												<h5 class="card-title" th:text="${row.matchName}">
-													第一届歌唱大赛（初赛）
+
 												</h5>
 												<p class="card-text">
-													开始时间：<span th:text="${#dates.format(row.matchBeginTime,'yyyy-MM-dd HH:mm:ss')}"></span>
+													开始时间：<span class="startData" th:text="${#dates.format(row.matchBeginTime,'yyyy-MM-dd HH:mm:ss')}"></span>
 												</p>
 												<p class="card-text">
-													结束时间：<span th:text="${#dates.format(row.matchEndTime,'yyyy-MM-dd HH:mm:ss')}"></span>
+													结束时间：<span class="endData" th:text="${#dates.format(row.matchEndTime,'yyyy-MM-dd HH:mm:ss')}"></span>
 												</p>
 											</div>
 											<div class="pt-3">
 												<div class="row pb-3">
-													<div class="col-6">
-														<a class="btn btn-primary btn-block vote-btn" href="#" data-toggle="modal" data-target="#exampleModal" >投票</a>
+													<div class="col-6" th:if="${#dates.format(winDate,'yyyy-MM-dd HH:mm:ss') > #dates.format(row.matchEndTime,'yyyy-MM-dd HH:mm:ss')} or ${#dates.format(winDate,'yyyy-MM-dd HH:mm:ss') < #dates.format(row.matchBeginTime,'yyyy-MM-dd HH:mm:ss')} ">
+														<a class="btn btn-primary btn-block vote-btn disabled" href="#" data-toggle="modal" data-target="#exampleModal" >投票</a>
 														<span style="visibility: hidden" name="matchId" th:text="${row.matchId}"></span>
 													</div>
-													<div class="col-6">
+													<div class="col-6 " th:unless="${#dates.format(winDate,'yyyy-MM-dd HH:mm:ss') > #dates.format(row.matchEndTime,'yyyy-MM-dd HH:mm:ss')} or ${#dates.format(winDate,'yyyy-MM-dd HH:mm:ss') < #dates.format(row.matchBeginTime,'yyyy-MM-dd HH:mm:ss')} ">
+														<a class="btn btn-primary btn-block vote-btn " href="#" data-toggle="modal" data-target="#exampleModal" >投票</a>
+														<span style="visibility: hidden" name="matchId" th:text="${row.matchId}"></span>
+													</div>
+
+													<div class="col-6" th:if="${#dates.format(winDate,'yyyy-MM-dd HH:mm:ss') > #dates.format(row.matchBeginTime,'yyyy-MM-dd HH:mm:ss')} ">
+														<a class="btn btn-primary  btn-block btnSign disabled" data-toggle="modal" data-target="#myModal" href="#">报名</a>
+														<span style="visibility: hidden" name="matchId" th:text="${row.matchId}"></span>
+													</div>
+
+													<div class="col-6" th:unless="${#dates.format(winDate,'yyyy-MM-dd HH:mm:ss') > #dates.format(row.matchBeginTime,'yyyy-MM-dd HH:mm:ss')} ">
 														<a class="btn btn-primary  btn-block btnSign" data-toggle="modal" data-target="#myModal" href="#">报名</a>
 														<span style="visibility: hidden" name="matchId" th:text="${row.matchId}"></span>
 													</div>
@@ -238,7 +248,24 @@
 						window.location.reload()
 					},
 				});
-			})
+			});
+
+			// 利用开始时间和结束时间限制投票和报名按钮
+			//比赛开始时间
+			var startDate = $(".startData").text();
+			//比赛结束时间
+			var endDate = $(".endData").text();
+			//系统当前时间
+			var winDate = new Date();
+
+			console.log(winDate);
+			console.log(startDate);
+			console.log(endDate);
+
+			if (winDate>startDate){
+				alert("报名时间已过");
+			}
+
 		});
 	</script>
 </html>
