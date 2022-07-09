@@ -16,6 +16,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -43,10 +44,13 @@ public class HomeController extends BaseController {
         PageHelper.startPage(pageNum,6);
         List<Match> list = matchService.selectMatchList(match);
         TableDataInfo dataTable = getDataTable(list);
-        System.out.println(dataTable);
+
         PageInfo<Match> page = new PageInfo<>(list,5);
         mmap.put("dataTable", dataTable);
+        System.out.println("主页面"+dataTable);
         mmap.put("pages", page);
+        mmap.put("winDate",new Date());
+        System.out.println("当前时间"+ new Date());
         System.out.println(page);
         return prefix + "UserHome";
     }
@@ -94,6 +98,14 @@ public class HomeController extends BaseController {
         map.put("matchId",matchId);
         map.put("raceSchedule",raceSchedule);
         return prefix +"audiencevote";
+    }
+
+    /**
+     *测试比赛结果详细界面
+     **/
+    @GetMapping("/res")
+    public String competitionResults(){
+        return prefix +"competitionResults";
     }
 
 }
