@@ -32,7 +32,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectViewerVoteVo"/>
         where id = #{id}
     </select>
-        
+
+    <select id="selectBySessionIdAndViewerId" resultType="integer">
+        <include refid="selectViewerVoteVo"/>
+        <where>
+            <if test="sessionId != null "> and session_id = #{sessionId}</if>
+            <if test="viewerId != null "> and viewer_id = #{viewerId}</if>
+        </where>
+    </select>
+
     <insert id="insertViewerVote" parameterType="ViewerVote" useGeneratedKeys="true" keyProperty="id">
         insert into viewer_vote
         <trim prefix="(" suffix=")" suffixOverrides=",">

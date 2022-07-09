@@ -10,6 +10,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
+
 /**
  * @author 魏渝辉
  * @Date:2022年07月08日 11:53
@@ -32,6 +34,14 @@ public class VoteController extends BaseController {
     public AjaxResult vote(ViewerVote viewerVote){
         SysUser sysUser = getSysUser();
         viewerVote.setViewerId(Math.toIntExact(sysUser.getUserId()));
-        return toAjax(viewerVoteService.insertViewerVote(viewerVote));
+        System.out.println("投票:" + viewerVote);
+        HashMap<String, String> vote = viewerVoteService.vote(viewerVote);
+        if(vote.containsKey("err")){
+            return AjaxResult.error(vote.get("err"));
+        }else if(vote.containsKey("success")){
+            return AjaxResult.success(vote.get("success"));
+        }else{
+            return AjaxResult.error("系统错误");
+        }
     }
 }

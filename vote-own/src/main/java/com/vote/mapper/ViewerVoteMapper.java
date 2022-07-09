@@ -59,4 +59,6 @@ public interface ViewerVoteMapper
      * @return 结果
      */
     public int deleteViewerVoteByIds(String[] ids);
+
+    public Integer selectBySessionIdAndViewerId(ViewerVote viewerVote);
 }

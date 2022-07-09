@@ -1,6 +1,9 @@
 package com.vote.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+
+import com.vote.common.core.domain.AjaxResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.vote.mapper.ViewerVoteMapper;
@@ -90,5 +93,23 @@ public class ViewerVoteServiceImpl implements IViewerVoteService
     public int deleteViewerVoteById(Integer id)
     {
         return viewerVoteMapper.deleteViewerVoteById(id);
+    }
+
+    @Override
+    public HashMap<String,String> vote(ViewerVote viewerVote) {
+        HashMap<String,String> result = new HashMap<>();
+        //检验是否投过票
+        Integer integer = viewerVoteMapper.selectBySessionIdAndViewerId(viewerVote);
+        if (null == integer){
+            int row = viewerVoteMapper.insertViewerVote(viewerVote);
+            if(row > 0){
+                result.put("success", "投票成功");
+            }else{
+                result.put("err","投票失败");
+            }
+        }else{
+            result.put("err", "您已投过此票");
+        }
+        return result;
     }
 }

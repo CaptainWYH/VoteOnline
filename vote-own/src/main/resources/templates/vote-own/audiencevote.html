@@ -52,7 +52,7 @@
 
                     <div class="row" style="margin-top: 10px">
                         <div class="col-md-12 container">
-                            <p><a href="#" class="btn btn-primary btn-block" role="button">投他一票</a></p>
+                            <p><button class="btn btn-primary btn-block" id="voteA" role="button">投他一票</button></p>
                         </div>
                     </div>
 
@@ -101,7 +101,7 @@
 
                     <div class="row" style="margin-top: 10px">
                         <div class="col-md-12 container">
-                            <p><a href="#" class="btn btn-primary btn-block" role="button">投他一票</a></p>
+                            <p><button class="btn btn-primary btn-block" id="voteB" role="button">投他一票</button></p>
                         </div>
                     </div>
 
@@ -138,10 +138,18 @@
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="@/static/ruoyi/js/ry-ui.js" th:src="@{/ruoyi/js/ry-ui.js?v=4.7.4}"></script>
+
 <script>
     $(document).ready(function (){
         var pagePreNum = $("#preValue").text();
         var pageNextNum = $("#nextValue").text();
+
+        var matchId = [[${matchId}]];
+        var raceSchedule = [[${raceSchedule}]];
+        var aId = [[${pages.list[0].aId}]];
+        var bId = [[${pages.list[0].bId}]];
+        var sessionId = [[${pages.list[0].id}]];
 
         console.log(pagePreNum);
         console.log(pageNextNum);
@@ -151,6 +159,38 @@
         if(pageNextNum == 0){
             $(".btn-next").addClass("disabled");
         }
+
+        $("#voteA").click(function () {
+            $.ajax({
+                type: "post",
+                url: "/vote",
+                data: {
+                    "matchId": matchId,
+                    "raceSchedule": raceSchedule,
+                    "sessionId": sessionId,
+                    "playerId": aId
+                },
+                success: function(r) {
+                    $.modal.alert(r.msg);
+                },
+            });
+        });
+
+        $("#voteB").click(function () {
+            $.ajax({
+                type: "post",
+                url: "/vote",
+                data: {
+                    "matchId": matchId,
+                    "raceSchedule": raceSchedule,
+                    "sessionId": sessionId,
+                    "playerId": bId
+                },
+                success: function(r) {
+                    $.modal.alert(r.msg);
+                },
+            });
+        });
     })
 </script>
 

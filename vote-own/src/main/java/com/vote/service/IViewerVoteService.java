@@ -1,7 +1,9 @@
 package com.vote.service;
 
+import java.util.HashMap;
 import java.util.List;
 
+import com.vote.common.core.domain.AjaxResult;
 import com.vote.domain.ViewerVote;
 
 /**
@@ -59,4 +61,7 @@ public interface IViewerVoteService
      * @return 结果
      */
     public int deleteViewerVoteById(Integer id);
+
+    public HashMap<String,String> vote(ViewerVote viewerVote);
+
 }
