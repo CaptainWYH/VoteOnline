@@ -291,6 +291,7 @@ public class ShiroConfig
         filterChainDefinitionMap.put("/captcha/captchaImage**", "anon");
         filterChainDefinitionMap.put("/vote-own/match/app/**", "anon");
         filterChainDefinitionMap.put("/system/home", "anon");
+        filterChainDefinitionMap.put("/votPage/**", "anon");
         // 退出 logout地址，shiro去清除session
         filterChainDefinitionMap.put("/logout", "logout");
         // 不需要拦截的访问

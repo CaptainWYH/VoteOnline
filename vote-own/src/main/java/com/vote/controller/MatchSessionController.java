@@ -1,6 +1,9 @@
 package com.vote.controller;
 
 import java.util.List;
+
+import com.vote.domain.Match;
+import com.vote.service.IMatchService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,10 +33,15 @@ public class MatchSessionController extends BaseController
     @Autowired
     private IMatchSessionService matchSessionService;
 
+    @Autowired
+    private IMatchService matchService;
+
     @RequiresPermissions("vote-own:match_session:view")
     @GetMapping()
-    public String match_session()
+    public String match_session(ModelMap map)
     {
+        List<Match> matches = matchService.selectMatchList(new Match());
+        map.put("matches",matches);
         return prefix + "/match_session";
     }
 
@@ -122,8 +130,17 @@ public class MatchSessionController extends BaseController
     }
 
 
+    /**
+     * 自动分配场次    根据比赛id ,赛程
+     * @param matchId
+     * @param raceSchedule
+     * @return
+     */
     @PostMapping("/autoDistribute")
+    @ResponseBody
     public AjaxResult autoDistribute(@RequestParam("matchId") Integer matchId,@RequestParam("raceSchedule")Integer raceSchedule){
+        System.out.println("MatchId:" + matchId);
+        System.out.println("rachSchedule:" + raceSchedule);
         return toAjax(matchSessionService.autoDistribute(matchId,raceSchedule));
     }
 }

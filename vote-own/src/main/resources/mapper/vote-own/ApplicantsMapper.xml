@@ -34,6 +34,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT DISTINCT a.player_id FROM applicants a WHERE a.player_id NOT IN (SELECT m.a_id FROM match_session m WHERE m.`match_id` = #{matchId} AND m.race_schedule = #{raceSchedule})
                                                         AND a.player_id NOT IN (SELECT m.b_id FROM match_session m WHERE m.`match_id` = #{matchId} AND m.race_schedule = #{raceSchedule})
     </select>
+    <select id="selectTitleByApplicants" resultType="java.lang.String">
+        select song_title from applicants
+        <where>
+            <if test="matchId != null "> and match_id = #{matchId}</if>
+            <if test="raceSchedule != null "> and race_schedule = #{raceSchedule}</if>
+            <if test="playerId != null "> and player_id = #{playerId}</if>
+            <if test="songTitle != null  and songTitle != ''"> and song_title = #{songTitle}</if>
+        </where>
+    </select>
 
     <insert id="insertApplicants" parameterType="Applicants" useGeneratedKeys="true" keyProperty="id">
         insert into applicants

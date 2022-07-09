@@ -3,7 +3,11 @@ package com.vote.service.impl;
 import java.util.Collections;
 import java.util.List;
 
+import com.vote.MatchSessionsVO;
+import com.vote.common.core.domain.entity.SysUser;
+import com.vote.domain.Applicants;
 import com.vote.mapper.ApplicantsMapper;
+import com.vote.system.mapper.SysUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.vote.mapper.MatchSessionMapper;
@@ -25,6 +29,9 @@ public class MatchSessionServiceImpl implements IMatchSessionService
 
     @Autowired
     private ApplicantsMapper applicantsMapper;
+
+    @Autowired
+    private SysUserMapper sysUserMapper;
 
     /**
      * 查询比赛场次
@@ -100,6 +107,7 @@ public class MatchSessionServiceImpl implements IMatchSessionService
 
     @Override
     public int autoDistribute(Integer matchId, Integer raceSchedule) {
+        int row = 0;
         //查询出未被分配的选手
         List<Integer> playerIds = applicantsMapper.selectNotDistribute(matchId, raceSchedule);
         //打乱排序
@@ -121,8 +129,40 @@ public class MatchSessionServiceImpl implements IMatchSessionService
             //写入数据库
             matchSession.setaId(player1);
             matchSession.setbId(player2);
-            matchSessionMapper.insertMatchSession(matchSession);
+            row += matchSessionMapper.insertMatchSession(matchSession);
         }
-        return 0;
+        return row;
+    }
+
+    @Override
+    public List<MatchSessionsVO> selectMatchSessions(MatchSession matchSession) {
+        List<MatchSessionsVO> matchSessions = matchSessionMapper.selectMatchSessions(matchSession);
+        Applicants applicants = new Applicants();
+        applicants.setMatchId(matchSession.getMatchId());
+        applicants.setRaceSchedule(matchSession.getRaceSchedule());
+        System.out.println(matchSessions);
+        for (MatchSessionsVO session : matchSessions) {
+            Integer aId = session.getaId();
+            Integer bId = session.getbId();
+
+            if(null != aId){
+                SysUser aUser = sysUserMapper.selectUserById(Long.valueOf(aId));
+                String aName = aUser.getUserName();
+                applicants.setPlayerId(aId);
+                String aTitle = applicantsMapper.selectTitleByApplicants(applicants);
+                session.setaTitle(aTitle);
+                session.setaName(aName);
+
+            }
+            if (null != bId){
+                SysUser bUser = sysUserMapper.selectUserById(Long.valueOf(bId));
+                applicants.setPlayerId(bId);
+                String bTitle = applicantsMapper.selectTitleByApplicants(applicants);
+                String bName = bUser.getUserName();
+                session.setbName(bName);
+                session.setbTitle(bTitle);
+            }
+        }
+        return matchSessions;
     }
 }

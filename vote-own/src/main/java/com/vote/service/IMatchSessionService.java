@@ -1,6 +1,8 @@
 package com.vote.service;
 
 import java.util.List;
+
+import com.vote.MatchSessionsVO;
 import com.vote.domain.MatchSession;
 
 /**
@@ -67,4 +69,11 @@ public interface IMatchSessionService
      * @return
      */
     public int autoDistribute(Integer matchId,Integer raceSchedule);
+
+    /**
+     * 查询场次   通过比赛id  赛程
+     * @param matchSession
+     * @return
+     */
+    public List<MatchSessionsVO> selectMatchSessions(MatchSession matchSession);
 }

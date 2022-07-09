@@ -125,4 +125,7 @@ public class ViewerVoteController extends BaseController
     {
         return toAjax(viewerVoteService.deleteViewerVoteByIds(ids));
     }
+
+
+
 }

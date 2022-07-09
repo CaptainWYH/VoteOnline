@@ -56,11 +56,24 @@
                 <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="vote-own:match_session:export">
                     <i class="fa fa-download"></i> 导出
                 </a>
-                <a class="btn btn-default" onclick="$.modal.open('AAA','/vote-own/match_session/edit/1',200,400,aaa)" shiro:hasPermission="vote-own:match_session:export">
+
+
+                <a class="btn btn-default" id="autoBtn">
                     <i class="fa fa-download"></i> 自动分配场次
                 </a>
+                <span class="form-group" style="display: inline">
+                    <select class="form-control" style="width: 30%; display: inline" id="choseMatch">
+                        <option value="">--请选择比赛--</option>
+                        <option th:each="match :${matches}" th:value="${match.matchId}" th:text="${match.matchName}">Java</option>
+                    </select>
+                    <select class="form-control" style="width: 27%; display: inline" id="choseRaceSchedule">
+                        <option value="">--请选择赛程--</option>
+                        <option value="1">初赛</option>
+                        <option value="2">决赛</option>
+                    </select>
+                </span>
             </div>
-            <div class="col-sm-12 select-table table-striped">
+            <div class="col-sm-12 select-table table-striped" style="display: inline">
                 <table id="bootstrap-table"></table>
             </div>
         </div>
@@ -70,10 +83,30 @@
         var editFlag = [[${@permission.hasPermi('vote-own:match_session:edit')}]];
         var removeFlag = [[${@permission.hasPermi('vote-own:match_session:remove')}]];
         var prefix = ctx + "vote-own/match_session";
-        function aaa(){
-            console.log(111111111)
-        }
+
+
         $(function() {
+            $("#autoBtn").click(function (){
+                $.modal.confirm("确定进行自动分配",function (){
+                    var matchId = $("#choseMatch").find('option:selected').val();
+                    var raceSchedule = $("#choseRaceSchedule").find('option:selected').val();
+                    $.ajax({
+                        type: "post",
+                        url: "/vote-own/match_session/autoDistribute",
+                        data: {"matchId":matchId,"raceSchedule":raceSchedule},
+                        success: function(r) {
+                            if(r.code == 0){
+                                $.modal.alert("分配成功!");
+                                window.location.reload();
+                            }else{
+                                $.modal.alert("分配失败!");
+                            }
+                        },
+                        async:false
+                    });
+                });
+            });
+
             var options = {
                 url: prefix + "/list",
                 createUrl: prefix + "/add",

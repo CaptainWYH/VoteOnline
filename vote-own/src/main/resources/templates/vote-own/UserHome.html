@@ -75,7 +75,8 @@
 											<div class="pt-3">
 												<div class="row pb-3">
 													<div class="col-6">
-														<a class="btn btn-primary btn-block "  href="#" >投票</a>
+														<a class="btn btn-primary btn-block vote-btn" href="#" data-toggle="modal" data-target="#exampleModal" >投票</a>
+														<span style="visibility: hidden" name="matchId" th:text="${row.matchId}"></span>
 													</div>
 													<div class="col-6">
 														<a class="btn btn-primary  btn-block btnSign" data-toggle="modal" data-target="#myModal" href="#">报名</a>
@@ -125,6 +126,32 @@
 				</div>
 			</div>
 
+
+
+		<!--投票模态框-->
+		<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">请选择投票的赛程</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<select class="form-control" id="choseSchedule">
+							<option value="">--请选择赛程--</option>
+							<option value="1">初赛</option>
+							<option value="2">决赛</option>
+						</select>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+						<button type="button" class="btn btn-primary" id="confirm-btn">确定</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		<!-- 分页栏 -->
 		<div class="container-fluid">
 			<div class="pt-4">
@@ -136,14 +163,14 @@
 						<div class="col-md-4">
 							<nav>
 								<ul class="pagination">
-									<li class="page-item">
+									<li class="page-item" th:if="${pages.prePage != 0}">
 										<a class="page-link" th:href="@{/system/home/{num}(num=${pages.prePage})}">上一页</a>
 									</li>
 
 									<li class="page-item" th:each="page : ${pages.navigatepageNums}">
 										<a class="page-link" th:href="@{/system/home/{num}(num=${page})}" th:text="${page}"></a>
 									</li>
-									<li class="page-item">
+									<li class="page-item" th:if="${pages.nextPage != 0}">
 										<a class="page-link" th:href="@{/system/home/{num}(num=${pages.nextPage})}">下一页</a>
 									</li>
 								</ul>
@@ -168,11 +195,25 @@
 	<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-	<script src="../static/ruoyi/js/ry-ui.js" th:src="@{/ruoyi/js/ry-ui.js?v=4.7.4}"></script>
+	<script src="@/static/ruoyi/js/ry-ui.js" th:src="@{/ruoyi/js/ry-ui.js?v=4.7.4}"></script>
 
 	<script>
 		$(document).ready(function (){
 			var matchId;
+
+			$(".vote-btn").click(function (){
+				matchId = $(this).next().text();
+
+			});
+
+			$("#confirm-btn").click(function (){
+				var choseSchedule = $("#choseSchedule").find('option:selected').val();
+				console.log($("#choseSchedule").find('option:selected').val());
+				$.modal.open("观众投票页面","/votPage/1/" + matchId + "/" + choseSchedule,1400,700,function () {
+
+				});
+
+			});
 
 			$(".btnSign").click(function (){
 				matchId = $(this).next().text();
