@@ -87,10 +87,15 @@ public class HomeController extends BaseController {
         List<MatchSessionsVO> matchSessionsVOS = matchSessionService.selectMatchSessions(matchSession);
         PageInfo<MatchSessionsVO> pages = new PageInfo<>(matchSessionsVOS,2);
         System.out.println(pages);
-        map.put("pages",pages);
-        map.put("matchId",matchId);
-        map.put("raceSchedule",raceSchedule);
-        return prefix +"judscore";
+        if (pages.getTotal() > 0){
+            map.put("pages",pages);
+            map.put("matchId",matchId);
+            map.put("raceSchedule",raceSchedule);
+            return prefix +"audiencevote";
+        }else{
+            map.put("msg","暂时没有场次可投票/打分");
+            return prefix +"voteNull";
+        }
     }
 
     /**
@@ -107,11 +112,16 @@ public class HomeController extends BaseController {
         PageHelper.startPage(pageNum,1);
         List<MatchSessionsVO> matchSessionsVOS = matchSessionService.selectMatchSessions(matchSession);
         PageInfo<MatchSessionsVO> pages = new PageInfo<>(matchSessionsVOS,2);
-        System.out.println(pages);
-        map.put("pages",pages);
-        map.put("matchId",matchId);
-        map.put("raceSchedule",raceSchedule);
-        return prefix +"audiencevote";
+        System.out.println("pagesInfo:" + pages);
+        if (pages.getTotal() > 0){
+            map.put("pages",pages);
+            map.put("matchId",matchId);
+            map.put("raceSchedule",raceSchedule);
+            return prefix +"audiencevote";
+        }else{
+            map.put("msg","暂时没有场次可投票/打分");
+            return prefix +"voteNull";
+        }
     }
 
     /**
