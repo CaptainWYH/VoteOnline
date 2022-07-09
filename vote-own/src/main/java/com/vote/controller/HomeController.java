@@ -83,6 +83,8 @@ public class HomeController extends BaseController {
         PageInfo<MatchSessionsVO> pages = new PageInfo<>(matchSessionsVOS,2);
         System.out.println(pages);
         map.put("pages",pages);
+        map.put("matchId",matchId);
+        map.put("raceSchedule",raceSchedule);
         return prefix +"audiencevote";
     }
 

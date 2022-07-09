@@ -163,14 +163,14 @@
 						<div class="col-md-4">
 							<nav>
 								<ul class="pagination">
-									<li class="page-item">
+									<li class="page-item" th:if="${pages.prePage != 0}">
 										<a class="page-link" th:href="@{/system/home/{num}(num=${pages.prePage})}">上一页</a>
 									</li>
 
 									<li class="page-item" th:each="page : ${pages.navigatepageNums}">
 										<a class="page-link" th:href="@{/system/home/{num}(num=${page})}" th:text="${page}"></a>
 									</li>
-									<li class="page-item">
+									<li class="page-item" th:if="${pages.nextPage != 0}">
 										<a class="page-link" th:href="@{/system/home/{num}(num=${pages.nextPage})}">下一页</a>
 									</li>
 								</ul>

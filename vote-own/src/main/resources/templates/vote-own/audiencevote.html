@@ -119,10 +119,12 @@
                 <div class="col-md-3"></div>
 
                 <div class="col-md-4">
-                    <button type="submit" class="btn btn-primary">上一场</button>
+                    <a class="btn btn-primary btn-pre" role="button" th:href="@{/votPage/{pageNum}/{matchId}/{raceSchedule}(pageNum = ${pages.prePage},matchId = ${matchId},raceSchedule = ${raceSchedule})}">上一页</a>
+                    <span style="visibility: hidden" id="preValue" name="matchId" th:text="${pages.prePage}"></span>
                 </div>
                 <div class="col-md-5">
-                    <button type="submit" class="btn btn-primary">下一场</button>
+                    <a class="btn btn-primary btn-next" role="button" th:href="@{/votPage/{pageNum}/{matchId}/{raceSchedule}(pageNum = ${pages.nextPage},matchId = ${matchId},raceSchedule = ${raceSchedule})}">下一页</a>
+                    <span style="visibility: hidden" id="nextValue" name="matchId" th:text="${pages.nextPage}"></span>
                 </div>
 
             </div>
@@ -136,6 +138,20 @@
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function (){
+        var pagePreNum = $("#preValue").text();
+        var pageNextNum = $("#nextValue").text();
 
+        console.log(pagePreNum);
+        console.log(pageNextNum);
+        if(pagePreNum == 0){
+            $(".btn-pre").addClass("disabled");
+        }
+        if(pageNextNum == 0){
+            $(".btn-next").addClass("disabled");
+        }
+    })
+</script>
 
 </html>
