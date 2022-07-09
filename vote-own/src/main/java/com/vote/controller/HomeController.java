@@ -68,14 +68,28 @@ public class HomeController extends BaseController {
         PageInfo<Match> page = new PageInfo<>(list,5);
         mmap.put("dataTable", dataTable);
         mmap.put("pages", page);
+        mmap.put("winDate",new Date());
         return prefix +"judges";
     }
 
     /**
      *测试评委打分详细界面
     **/
-    @GetMapping("/scoPage")
-    public String judgesScore(){
+    @GetMapping("/scoPage/{pageNum}/{matchId}/{raceSchedule}")
+    public String judgesScore(@PathVariable("pageNum")Integer pageNum,
+                              @PathVariable("matchId")Integer matchId,
+                              @PathVariable("raceSchedule")Integer raceSchedule,ModelMap map){
+        MatchSession matchSession = new MatchSession();
+        matchSession.setMatchId(matchId);
+        matchSession.setRaceSchedule(raceSchedule);
+        System.out.println("matchSession:" + matchSession);
+        PageHelper.startPage(pageNum,1);
+        List<MatchSessionsVO> matchSessionsVOS = matchSessionService.selectMatchSessions(matchSession);
+        PageInfo<MatchSessionsVO> pages = new PageInfo<>(matchSessionsVOS,2);
+        System.out.println(pages);
+        map.put("pages",pages);
+        map.put("matchId",matchId);
+        map.put("raceSchedule",raceSchedule);
         return prefix +"judscore";
     }
 

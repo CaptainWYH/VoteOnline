@@ -34,7 +34,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectJudgesPointsVo"/>
         where id = #{id}
     </select>
-        
+    <select id="selectBySessionIdAndJudgesId" resultType="java.lang.Integer">
+        <include refid="selectJudgesPointsVo"/>
+        <where>
+            <if test="judgesId != null "> and judges_id = #{judgesId}</if>
+            <if test="sessionId != null "> and session_id = #{sessionId}</if>
+            <if test="playerId != null "> and player_id = #{playerId}</if>
+        </where>
+    </select>
+
     <insert id="insertJudgesPoints" parameterType="JudgesPoints" useGeneratedKeys="true" keyProperty="id">
         insert into judges_points
         <trim prefix="(" suffix=")" suffixOverrides=",">

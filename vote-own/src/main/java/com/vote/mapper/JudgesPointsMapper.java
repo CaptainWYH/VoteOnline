@@ -2,6 +2,7 @@ package com.vote.mapper;
 
 import java.util.List;
 import com.vote.domain.JudgesPoints;
+import com.vote.domain.ViewerVote;
 
 /**
  * 评委打分Mapper接口
@@ -58,4 +59,7 @@ public interface JudgesPointsMapper
      * @return 结果
      */
     public int deleteJudgesPointsByIds(String[] ids);
+
+    public Integer selectBySessionIdAndJudgesId(JudgesPoints judgesPoints);
+
 }

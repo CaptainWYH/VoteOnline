@@ -3,8 +3,8 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-		<link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 		<title>评委打分</title>
 	</head>
 	<body>
@@ -47,232 +47,215 @@
 
 
 
-					<!-- 投票主界面 -->
-					<div class="row">
-						<div class="container-fluid">
-							<div class="pb-5">
-								<ul>
-									<div class="row">
-										<div class="col-md-2">
-										</div>
-										<div class="col-md-8">
-											<div class="row">
-												<div class="col-md-4">
-													<div class="card">
-														<img class="card-img-top" alt="Bootstrap Thumbnail Second"
-															th:src="@{/img/GA5W1Q69%5B~EA%7B998)YJ6M2E.jpg}" />
-														<div class="container">
-															<div class="card-block pt-3">
-																<h5 class="card-title">
-																	第一届歌唱大赛（初赛）
-																</h5>
-																<p class="card-text">
-																	开始时间：
-																</p>
-																<p class="card-text">
-																	结束时间：
-																</p>
-
-															</div>
-
-															<div class="pt-3 pb-3">
-																<a class="btn btn-primary btn-block " href="#">打分</a>
-															</div>
-														</div>
-
-													</div>
-												</div>
-												<div class="col-md-4">
-													<div class="card">
-														<img class="card-img-top" alt="Bootstrap Thumbnail Second"
-															th:src="@{/img/GA5W1Q69%5B~EA%7B998)YJ6M2E.jpg}" />
-														<div class="container">
-															<div class="card-block pt-3">
-																<h5 class="card-title">
-																	第一届歌唱大赛（初赛）
-																</h5>
-																<p class="card-text">
-																	开始时间：
-																</p>
-																<p class="card-text">
-																	结束时间：
-																</p>
-
-															</div>
-
-															<div class="pt-3 pb-3">
-																<a class="btn btn-primary btn-block " href="#">打分</a>
-															</div>
-														</div>
-
-													</div>
-												</div>
-												<div class="col-md-4">
-													<div class="card">
-														<img class="card-img-top" alt="Bootstrap Thumbnail Second"
-															th:src="@{/img/GA5W1Q69%5B~EA%7B998)YJ6M2E.jpg}" />
-														<div class="container">
-															<div class="card-block pt-3">
-																<h5 class="card-title">
-																	第一届歌唱大赛（初赛）
-																</h5>
-																<p class="card-text">
-																	开始时间：
-																</p>
-																<p class="card-text">
-																	结束时间：
-																</p>
-
-															</div>
-
-															<div class="pt-3 pb-3">
-																<a class="btn btn-primary btn-block " href="#">打分</a>
-															</div>
-														</div>
-
-													</div>
-												</div>
-											</div>
-										</div>
-										<div class="col-md-2"></div>
-									</div>
-								</ul>
+			<!-- 投票主界面 -->
+			<div class="row">
+				<div class="container-fluid">
+					<div class="pb-5">
+						<div class="row">
+							<div class="col-md-2">
 							</div>
-								<ul>
-									<div class="row">
-										<div class="col-md-2">
-										</div>
-										<div class="col-md-8">
-											<div class="row">
-												<div class="col-md-4">
-													<div class="card">
-														<img class="card-img-top" alt="Bootstrap Thumbnail Second"
-															th:src="@{/img/GA5W1Q69%5B~EA%7B998)YJ6M2E.jpg}" />
-														<div class="container">
-															<div class="card-block pt-3">
-																<h5 class="card-title">
-																	第一届歌唱大赛（初赛）
-																</h5>
-																<p class="card-text">
-																	开始时间：
-																</p>
-																<p class="card-text">
-																	结束时间：
-																</p>
+							<div class="col-md-8">
+								<div class="row pt-3">
 
-															</div>
+									<div class="col-4 pt-3" th:each="row : ${dataTable.rows}">
+										<div class="card">
+											<img class="card-img-top" alt="Bootstrap Thumbnail Second"
+												 th:src="@{/img/GA5W1Q69%5B~EA%7B998)YJ6M2E.jpg}" />
+											<div class="container">
+												<div class="card-block">
+													<h5 class="card-title" th:text="${row.matchName}">
 
-															<div class="pt-3 pb-3">
-																<a class="btn btn-primary btn-block " href="#">打分</a>
-															</div>
-														</div>
-
-													</div>
+													</h5>
+													<p class="card-text">
+														开始时间：<span class="startData" th:text="${#dates.format(row.matchBeginTime,'yyyy-MM-dd HH:mm:ss')}"></span>
+													</p>
+													<p class="card-text">
+														结束时间：<span class="endData" th:text="${#dates.format(row.matchEndTime,'yyyy-MM-dd HH:mm:ss')}"></span>
+													</p>
 												</div>
-												<div class="col-md-4">
-													<div class="card">
-														<img class="card-img-top" alt="Bootstrap Thumbnail Second"
-															th:src="@{/img/GA5W1Q69%5B~EA%7B998)YJ6M2E.jpg}" />
-														<div class="container">
-															<div class="card-block pt-3">
-																<h5 class="card-title">
-																	第一届歌唱大赛（初赛）
-																</h5>
-																<p class="card-text">
-																	开始时间：
-																</p>
-																<p class="card-text">
-																	结束时间：
-																</p>
-
-															</div>
-
-															<div class="pt-3 pb-3">
-																<a class="btn btn-primary btn-block " href="#">打分</a>
-															</div>
+												<div class="pt-3">
+													<div class="row pb-3">
+														<div class="col" th:if="${#dates.format(winDate,'yyyy-MM-dd HH:mm:ss') > #dates.format(row.matchEndTime,'yyyy-MM-dd HH:mm:ss')} or ${#dates.format(winDate,'yyyy-MM-dd HH:mm:ss') < #dates.format(row.matchBeginTime,'yyyy-MM-dd HH:mm:ss')} ">
+															<a class="btn btn-primary btn-block vote-btn disabled" href="#" data-toggle="modal" data-target="#exampleModal" >打分</a>
+															<span style="visibility: hidden" name="matchId" th:text="${row.matchId}"></span>
 														</div>
-
-													</div>
-												</div>
-												<div class="col-md-4">
-													<div class="card">
-														<img class="card-img-top" alt="Bootstrap Thumbnail Second" th:src="@{/img/GA5W1Q69%5B~EA%7B998)YJ6M2E.jpg}" />
-														<div class="container">
-															<div class="card-block pt-3">
-																<h5 class="card-title">
-																	第一届歌唱大赛（初赛）
-																</h5>
-																<p class="card-text">
-																	开始时间：
-																</p>
-																<p class="card-text">
-																	结束时间：
-																</p>
-
-															</div>
-
-															<div class="pt-3 pb-3">
-																<a class="btn btn-primary btn-block " href="#">打分</a>
-															</div>
+														<div class="col" th:unless="${#dates.format(winDate,'yyyy-MM-dd HH:mm:ss') > #dates.format(row.matchEndTime,'yyyy-MM-dd HH:mm:ss')} or ${#dates.format(winDate,'yyyy-MM-dd HH:mm:ss') < #dates.format(row.matchBeginTime,'yyyy-MM-dd HH:mm:ss')} ">
+															<a class="btn btn-primary btn-block vote-btn " href="#" data-toggle="modal" data-target="#exampleModal" >打分</a>
+															<span style="visibility: hidden" name="matchId" th:text="${row.matchId}"></span>
 														</div>
-
 													</div>
 												</div>
 											</div>
 										</div>
-										<div class="col-md-2"></div>
-									</div>
-								</ul>
-						</div>
-					</div>
-
-					<!-- 分页栏 -->
-					<div class="container-fluid">
-						<div class="pt-4">
-							<div class="container">
-
-								<div class="row">
-									<div class="col-md-4">
-									</div>
-									<div class="col-md-4">
-										<nav>
-											<ul class="pagination">
-												<li class="page-item">
-													<a class="page-link" href="#">上一页</a>
-												</li>
-												<li class="page-item">
-													<a class="page-link" href="#">1</a>
-												</li>
-												<li class="page-item">
-													<a class="page-link" href="#">2</a>
-												</li>
-												<li class="page-item">
-													<a class="page-link" href="#">3</a>
-												</li>
-												<li class="page-item">
-													<a class="page-link" href="#">4</a>
-												</li>
-												<li class="page-item">
-													<a class="page-link" href="#">5</a>
-												</li>
-												<li class="page-item">
-													<a class="page-link" href="#">下一页</a>
-												</li>
-											</ul>
-										</nav>
-									</div>
-									<div class="col-md-4">
 									</div>
 								</div>
 							</div>
+							<div class="col-md-2"></div>
 						</div>
-
 					</div>
+				</div>
+			</div>
+
+
+			<!-- Modal -->
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabel">报名信息</h4>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+
+						</div>
+						<div class="modal-body">
+							<div class="form-group">
+								<label for="exampleInputName2">初赛曲目</label>
+								<input type="text" class="form-control" id="exampleInputName2" name="firstTitle" placeholder="请输入初赛曲目">
+							</div>
+							<div class="form-group">
+								<label for="exampleInputName1">复赛曲目</label>
+								<input type="text" class="form-control" id="exampleInputName1" name="lastTitle" placeholder="请输入复赛曲目">
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">取消报名</button>
+							<button type="button" class="btn btn-primary" id="signUp">报名</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+			<!--投票模态框-->
+			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">请选择投票的赛程</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<select class="form-control" id="choseSchedule">
+								<option value="">--请选择赛程--</option>
+								<option value="1">初赛</option>
+								<option value="2">决赛</option>
+							</select>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">取消</button>
+							<button type="button" class="btn btn-primary" id="confirm-btn">确定</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 分页栏 -->
+			<div class="container-fluid">
+				<div class="pt-4">
+					<div class="container">
+
+						<div class="row">
+							<div class="col-md-4">
+							</div>
+							<div class="col-md-4">
+								<nav>
+									<ul class="pagination">
+										<li class="page-item" th:if="${pages.prePage != 0}">
+											<a class="page-link" th:href="@{/jud/{num}(num=${pages.prePage})}">上一页</a>
+										</li>
+
+										<li class="page-item" th:each="page : ${pages.navigatepageNums}">
+											<a class="page-link" th:href="@{/jud/{num}(num=${page})}" th:text="${page}"></a>
+										</li>
+										<li class="page-item" th:if="${pages.nextPage != 0}">
+											<a class="page-link" th:href="@{/jud/{num}(num=${pages.nextPage})}">下一页</a>
+										</li>
+									</ul>
+								</nav>
+							</div>
+							<div class="col-md-4">
+							</div>
+						</div>
+					</div>
+				</div>
 
 			</div>
+
+		</div>
+
 	</body>
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<!--	<script th:src="@{/js/jquery.min.js}"></script>-->
+	<!--	<script th:src="@{/js/bootstrap.min.js}"></script>-->
+	<!--	<script th:src="@{/js/jquery-3.1.1.min.js}"></script>-->
+	<!--	<script th:src="@{/js/bootstrap.min.js}"></script>-->
+	<!--	<script th:src="@{/js/bootstrap.js}"></script>-->
+	<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="@/static/ruoyi/js/ry-ui.js" th:src="@{/ruoyi/js/ry-ui.js?v=4.7.4}"></script>
 
+	<script>
+		$(document).ready(function (){
+			var matchId;
+
+			$(".vote-btn").click(function (){
+				matchId = $(this).next().text();
+
+			});
+
+			$("#confirm-btn").click(function (){
+				var choseSchedule = $("#choseSchedule").find('option:selected').val();
+				console.log($("#choseSchedule").find('option:selected').val());
+				$.modal.open("评委投票页面","/scoPage/1/" + matchId + "/" + choseSchedule,1400,700,function () {
+
+				});
+
+			});
+
+			$(".btnSign").click(function (){
+				matchId = $(this).next().text();
+				console.log($(this).next().text());
+			});
+			$("#signUp").click(function () {
+				var fitstTitle = $.common.trim($("input[name='firstTitle']").val());
+				var endTitle = $.common.trim($("input[name='lastTitle']").val());
+				// alert("初赛:" + fitstTitle + "\n" +  "决赛: "+ endTitle   + "比赛id:" + matchId);
+				$.ajax({
+					type: "post",
+					url: "/signUp",
+					data: {
+						"matchId": matchId,
+						"firstTitle": fitstTitle,
+						"endTitle": endTitle
+					},
+					success: function(r) {
+						if (r.code == 500){
+							alert(r.msg);
+						}
+						window.location.reload()
+					},
+				});
+			});
+
+			// 利用开始时间和结束时间限制投票和报名按钮
+			//比赛开始时间
+			var startDate = $(".startData").text();
+			//比赛结束时间
+			var endDate = $(".endData").text();
+			//系统当前时间
+			var winDate = new Date();
+
+			console.log(winDate);
+			console.log(startDate);
+			console.log(endDate);
+
+			if (winDate>startDate){
+				alert("报名时间已过");
+			}
+
+		});
+	</script>
 </html>

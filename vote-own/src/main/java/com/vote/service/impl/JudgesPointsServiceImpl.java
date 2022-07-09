@@ -1,5 +1,6 @@
 package com.vote.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -90,5 +91,23 @@ public class JudgesPointsServiceImpl implements IJudgesPointsService
     public int deleteJudgesPointsById(Integer id)
     {
         return judgesPointsMapper.deleteJudgesPointsById(id);
+    }
+
+    @Override
+    public HashMap<String, String> vote(JudgesPoints judgesPoints) {
+        HashMap<String,String> result = new HashMap<>();
+        //检验是否投过票
+        Integer integer = judgesPointsMapper.selectBySessionIdAndJudgesId(judgesPoints);
+        if (null == integer){
+            int row = judgesPointsMapper.insertJudgesPoints(judgesPoints);
+            if(row > 0){
+                result.put("success", "打分成功");
+            }else{
+                result.put("err","打分失败");
+            }
+        }else{
+            result.put("err", "您已为本选手打过分");
+        }
+        return result;
     }
 }

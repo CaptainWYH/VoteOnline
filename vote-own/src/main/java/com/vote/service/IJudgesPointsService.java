@@ -1,7 +1,9 @@
 package com.vote.service;
 
+import java.util.HashMap;
 import java.util.List;
 import com.vote.domain.JudgesPoints;
+import com.vote.domain.ViewerVote;
 
 /**
  * 评委打分Service接口
@@ -58,4 +60,7 @@ public interface IJudgesPointsService
      * @return 结果
      */
     public int deleteJudgesPointsById(Integer id);
+
+    public HashMap<String,String> vote(JudgesPoints judgesPoints);
+
 }
