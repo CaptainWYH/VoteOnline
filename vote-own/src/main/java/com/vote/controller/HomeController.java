@@ -54,8 +54,16 @@ public class HomeController extends BaseController {
     /**
      *测试评委主页面
     **/
-    @GetMapping("/jud")
-    public String judges(){
+    @GetMapping("/jud/{pageNum}")
+    public String judges(@PathVariable("pageNum")Integer pageNum, ModelMap mmap){
+        Match match = new Match();
+        PageHelper.startPage(pageNum,6);
+        List<Match> list = matchService.selectMatchList(match);
+        TableDataInfo dataTable = getDataTable(list);
+        System.out.println(dataTable);
+        PageInfo<Match> page = new PageInfo<>(list,5);
+        mmap.put("dataTable", dataTable);
+        mmap.put("pages", page);
         return prefix +"judges";
     }
 
