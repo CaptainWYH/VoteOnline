@@ -6,6 +6,8 @@
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
     <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
     <title>评委打分</title>
+
+
 </head>
 <body>
 <div id="container-sm">
@@ -24,128 +26,95 @@
         </div>
     </div>
 
-
-    <!-- 搜索框 -->
+    <!-- 比赛名称栏 -->
     <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4" style="margin: 20px auto 20px auto ;">
-            <form action="#" method="" class="bs-example bs-example-form" role="form">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" style="height: 40px;" placeholder="输入选手姓名进行快速定位搜索"
-                           aria-label="Recipient's username" aria-describedby="basic-addon2"/>
-                    <span class="input-group-append">
-                        <button class="btn btn-primary" type="submit">
-                            搜索
-                        </button>
-                    </span>
-                </div>
-            </form>
+        <div class="col-md-2"></div>
+        <div class="col-md-8 h1" style="margin: 20px auto 20px auto ;text-align: center;">
+            <div class="text"><span>第一届ACM大赛</span></div>
         </div>
-        <div class="col-md-4"></div>
+        <div class="col-md-2"></div>
     </div>
-
 
     <!-- 比赛结果排序界面 -->
     <div class="row">
-        <div class="container-fluid">
-            <div class="pb-5">
-                <div class="row">
-                    <div class="col-md-2">
-                    </div>
-                    <div class="col-md-8">
-                        <div class="row pt-3">
-
-                            <div class="col-4 pt-3">
-                                <div class="thumbnail">
-                                    <img alt="Bootstrap Image Preview" th:src="@{/img/plays1.png}"/>
-                                    <div class="caption">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <input type="text" readOnly="true" class="form-control" value="选手姓名："
-                                                       style="width: 80px"/>
-                                            </div>
-                                            <div class="col-md-9">
-                                                <input type="text" class="form-control " readOnly="true"
-                                                       style="width: 100%;display:inline-block;"/>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <input type="text" readOnly="true" class="form-control" value="歌唱曲目："
-                                                       style="margin-top: 10px;width: 80px"/>
-                                            </div>
-                                            <div class="col-md-9">
-                                                <input type="text" class="form-control " readOnly="true"
-                                                       style="margin-top: 10px;width: 100%;display:inline-block;"/>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <input type="text" readOnly="true" class="form-control" value="最终分数："
-                                                       style="margin-top: 10px;width: 80px"/>
-                                            </div>
-                                            <div class="col-md-9">
-                                                <input type="text" class="form-control " readOnly="true"
-                                                       style="margin-top: 10px;width: 100%;display:inline-block;"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-2"></div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-8">
+            <div class="table-responsive">
+                <table class="table text-nowrap" style="text-align: center">
+                    <thead>
+                    <tr>
+                        <th style="text-align: center">最终排名</th>
+                        <th style="text-align: center">选手名称</th>
+                        <th style="text-align: center">参赛曲目</th>
+                        <th style="text-align: center">最终分数</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>表格单元格</td>
+                        <td>表格单元格</td>
+                        <td>表格单元格</td>
+                        <td>表格单元格</td>
+                    </tr>
+                    <tr>
+                        <td>表格单元格</td>
+                        <td>表格单元格</td>
+                        <td>表格单元格</td>
+                        <td>表格单元格</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
+        </div>
+        <div class="col-md-2">
         </div>
     </div>
 </div>
 
-<!-- 分页栏 -->
-<div class="container-fluid">
-    <div class="pt-4">
-        <div class="container">
+<!--    &lt;!&ndash; 分页栏 &ndash;&gt;-->
+<!--    <div class="container-fluid">-->
+<!--        <div class="pt-4">-->
+<!--            <div class="container">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-md-4">-->
 
-            <div class="row">
-                <div class="col-md-4">
-                </div>
-                <div class="col-md-4">
-                    <nav>
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="#">上一页</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">3</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">4</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">5</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">下一页</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="col-md-4">
-                </div>
-            </div>
-        </div>
-    </div>
+<!--                    </div>-->
+<!--                    <div class="col-md-4">-->
+<!--                        <nav>-->
+<!--                            <ul class="pagination">-->
+<!--                                <li class="page-item">-->
+<!--                                    <a class="page-link" href="#">上一页</a>-->
+<!--                                </li>-->
+<!--                                <li class="page-item">-->
+<!--                                    <a class="page-link" href="#">1</a>-->
+<!--                                </li>-->
+<!--                                <li class="page-item">-->
+<!--                                    <a class="page-link" href="#">2</a>-->
+<!--                                </li>-->
+<!--                                <li class="page-item">-->
+<!--                                    <a class="page-link" href="#">3</a>-->
+<!--                                </li>-->
+<!--                                <li class="page-item">-->
+<!--                                    <a class="page-link" href="#">4</a>-->
+<!--                                </li>-->
+<!--                                <li class="page-item">-->
+<!--                                    <a class="page-link" href="#">5</a>-->
+<!--                                </li>-->
+<!--                                <li class="page-item">-->
+<!--                                    <a class="page-link" href="#">下一页</a>-->
+<!--                                </li>-->
+<!--                            </ul>-->
+<!--                        </nav>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-4">-->
 
-</div>
-
-</div>
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
 </body>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
