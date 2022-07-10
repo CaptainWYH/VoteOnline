@@ -91,7 +91,7 @@ public class HomeController extends BaseController {
             map.put("pages",pages);
             map.put("matchId",matchId);
             map.put("raceSchedule",raceSchedule);
-            return prefix +"audiencevote";
+            return prefix +"judscore";
         }else{
             map.put("msg","暂时没有场次可投票/打分");
             return prefix +"voteNull";
