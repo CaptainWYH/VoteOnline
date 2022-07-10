@@ -181,17 +181,20 @@ public class ResultMatchServiceImpl implements IResultMatchService
             viewerVote.setPlayerId(playerId);
             //对a选手投票数量
             BigDecimal voteCounts = new BigDecimal(viewerVoteMapper.selectCounts(viewerVote));
-            System.out.println(playerId + "选手投票数" + voteCounts);
-            System.out.println("本场总投票数" + voteAllCounts);
-            BigDecimal percents = null;
+
+            BigDecimal percents;
             if(voteCounts.compareTo(new BigDecimal("0.00")) == 1 && voteAllCounts.compareTo(new BigDecimal("0.00"))  == 1){
-                percents = new BigDecimal(String.valueOf(voteCounts.divide(voteAllCounts))).multiply(new BigDecimal("100.00"));
+                percents = new BigDecimal(String.valueOf(voteCounts.divide(voteAllCounts,2,BigDecimal.ROUND_HALF_UP))).multiply(new BigDecimal("100.00"));
             }else {
                 percents = new BigDecimal("0.00");
             }
             //评委平均分
             judgesPoints.setPlayerId(playerId);
             BigDecimal aAvgPoints = judgesPointsMapper.selectAvgPointsByMatchIdAndRaceSchedleAndPlayerId(judgesPoints);
+            aAvgPoints = aAvgPoints == null ? new BigDecimal("0.00") : aAvgPoints;
+            System.out.println(playerId + "选手投票数" + voteCounts);
+            System.out.println("本场总投票数" + voteAllCounts);
+            System.out.println("评委评分:" + aAvgPoints);
             resultMatch.setPlayerId(playerId);
             resultMatch.setPercent(percents);
             resultMatch.setJudgesScore(aAvgPoints);
