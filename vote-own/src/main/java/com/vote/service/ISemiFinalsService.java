@@ -1,7 +1,9 @@
 package com.vote.service;
 
+import java.util.HashMap;
 import java.util.List;
 import com.vote.domain.SemiFinals;
+import com.vote.dto.AutoCalculateDTO;
 
 /**
  * 复赛管理Service接口
@@ -58,4 +60,12 @@ public interface ISemiFinalsService
      * @return 结果
      */
     public int deleteSemiFinalsById(Integer id);
+
+    /**
+     * 自动分配复赛
+     * @param autoCalculateDTO
+     * @return
+     */
+    public HashMap<String,String> autoDistribute(AutoCalculateDTO autoCalculateDTO);
+
 }

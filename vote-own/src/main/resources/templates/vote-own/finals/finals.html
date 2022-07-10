@@ -48,6 +48,15 @@
                 <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="vote-own:finals:export">
                     <i class="fa fa-download"></i> 导出
                 </a>
+                <a class="btn btn-default" id="autoBtn">
+                    <i class="fa fa-download"></i> 自动导入复赛
+                </a>
+                <span class="form-group" style="display: inline">
+                    <select class="form-control" style="width: 30%; display: inline" id="choseMatch">
+                        <option value="0">--请选择比赛--</option>
+                        <option th:each="match :${matches}" th:value="${match.matchId}" th:text="${match.matchName}">Java</option>
+                    </select>
+                </span>
             </div>
             <div class="col-sm-12 select-table table-striped">
                 <table id="bootstrap-table"></table>
@@ -61,6 +70,37 @@
         var prefix = ctx + "vote-own/finals";
 
         $(function() {
+
+            $("#autoBtn").click(function (){
+                $.modal.confirm("确定自动导入复赛信息",function (){
+                    var matchId = $("#choseMatch").find('option:selected').val();
+                    if (matchId == 0){
+                        $.modal.alert("请选择比赛");
+                        return;
+                    }
+                    $.ajax({
+                        type: "post",
+                        url: "/calculate/autoDistributeFinal",
+                        data: {"matchId":matchId,"raceSchedule":1},
+                        success: function(r) {
+                            $.modal.alert(r.msg);
+                            if (r.code != 500){
+                                window.location.reload();
+                            }
+                        },
+                        beforeSend: function(xhr){
+                            //1.发送请求之前执行，最先执行，添加loading一般在这里。
+                            $.modal.loading("正在进行导入复赛，请稍后...");
+                        },
+                        complete:function(xhr,status){
+                            //2.请求完成之后执行，最后执行，关闭loading一般在这里
+                            $.modal.closeLoading();
+                        }
+                    });
+                });
+            });
+
+
             var options = {
                 url: prefix + "/list",
                 createUrl: prefix + "/add",

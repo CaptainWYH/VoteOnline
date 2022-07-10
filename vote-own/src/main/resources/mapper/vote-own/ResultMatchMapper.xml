@@ -36,7 +36,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectResultMatchVo"/>
         where id = #{id}
     </select>
-        
+    <select id="selectResultListsLimitPreEight" resultMap="ResultMatchResult" parameterType="ResultMatch">
+        <include refid="selectResultMatchVo"/>
+        <where>
+            <if test="matchId != null "> and match_id = #{matchId}</if>
+            <if test="raceSchedule != null "> and race_schedule = #{raceSchedule}</if>
+        </where>
+        ORDER BY final_score DESC LIMIT 8;
+    </select>
+
     <insert id="insertResultMatch" parameterType="ResultMatch" useGeneratedKeys="true" keyProperty="id">
         insert into result_match
         <trim prefix="(" suffix=")" suffixOverrides=",">

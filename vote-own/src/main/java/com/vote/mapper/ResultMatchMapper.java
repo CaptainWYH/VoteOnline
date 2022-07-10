@@ -58,4 +58,11 @@ public interface ResultMatchMapper
      * @return 结果
      */
     public int deleteResultMatchByIds(String[] ids);
+
+    /**
+     * 查询初赛成绩前八选手
+     * @param resultMatch
+     * @return
+     */
+    public List<ResultMatch> selectResultListsLimitPreEight(ResultMatch resultMatch);
 }

@@ -108,8 +108,14 @@ public class MatchSessionServiceImpl implements IMatchSessionService
     @Override
     public int autoDistribute(Integer matchId, Integer raceSchedule) {
         int row = 0;
+        List<Integer> playerIds = null;
         //查询出未被分配的选手
-        List<Integer> playerIds = applicantsMapper.selectNotDistribute(matchId, raceSchedule);
+        if (raceSchedule == 1){//初赛
+            playerIds = applicantsMapper.selectNotDistribute(matchId, raceSchedule);
+        }else{
+            //决赛
+        }
+
         //打乱排序
         Collections.shuffle(playerIds);
 
