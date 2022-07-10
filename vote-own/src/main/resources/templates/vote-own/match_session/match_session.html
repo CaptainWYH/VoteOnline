@@ -63,11 +63,11 @@
                 </a>
                 <span class="form-group" style="display: inline">
                     <select class="form-control" style="width: 30%; display: inline" id="choseMatch">
-                        <option value="">--请选择比赛--</option>
+                        <option value="0">--请选择比赛--</option>
                         <option th:each="match :${matches}" th:value="${match.matchId}" th:text="${match.matchName}">Java</option>
                     </select>
                     <select class="form-control" style="width: 27%; display: inline" id="choseRaceSchedule">
-                        <option value="">--请选择赛程--</option>
+                        <option value="0">--请选择赛程--</option>
                         <option value="1">初赛</option>
                         <option value="2">决赛</option>
                     </select>
@@ -90,19 +90,32 @@
                 $.modal.confirm("确定进行自动分配",function (){
                     var matchId = $("#choseMatch").find('option:selected').val();
                     var raceSchedule = $("#choseRaceSchedule").find('option:selected').val();
+                    if (matchId == 0){
+                        $.modal.alert("请选择比赛");
+                        return;
+                    }
+                    if (raceSchedule == 0){
+                        $.modal.alert("请选择赛程");
+                        return;
+                    }
                     $.ajax({
                         type: "post",
                         url: "/vote-own/match_session/autoDistribute",
                         data: {"matchId":matchId,"raceSchedule":raceSchedule},
                         success: function(r) {
-                            if(r.code == 0){
-                                $.modal.alert("分配成功!");
+                            $.modal.alert(r.msg);
+                            if (r.code != 500){
                                 window.location.reload();
-                            }else{
-                                $.modal.alert("分配失败!");
                             }
                         },
-                        async:false
+                        beforeSend: function(xhr){
+                            //1.发送请求之前执行，最先执行，添加loading一般在这里。
+                            $.modal.loading("正在进行自动分配场次，请稍后...");
+                        },
+                        complete:function(xhr,status){
+                            //2.请求完成之后执行，最后执行，关闭loading一般在这里
+                            $.modal.closeLoading();
+                        }
                     });
                 });
             });

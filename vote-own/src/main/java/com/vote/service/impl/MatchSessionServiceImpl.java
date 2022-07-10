@@ -1,12 +1,15 @@
 package com.vote.service.impl;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import com.vote.MatchSessionsVO;
 import com.vote.common.core.domain.entity.SysUser;
 import com.vote.domain.Applicants;
+import com.vote.domain.SemiFinals;
 import com.vote.mapper.ApplicantsMapper;
+import com.vote.mapper.SemiFinalsMapper;
 import com.vote.system.mapper.SysUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +35,9 @@ public class MatchSessionServiceImpl implements IMatchSessionService
 
     @Autowired
     private SysUserMapper sysUserMapper;
+
+    @Autowired
+    private SemiFinalsMapper semiFinalsMapper;
 
     /**
      * 查询比赛场次
@@ -106,7 +112,8 @@ public class MatchSessionServiceImpl implements IMatchSessionService
     }
 
     @Override
-    public int autoDistribute(Integer matchId, Integer raceSchedule) {
+    public HashMap<String,String> autoDistribute(Integer matchId, Integer raceSchedule) {
+        HashMap<String,String> result = new HashMap<>();
         int row = 0;
         List<Integer> playerIds = null;
         //查询出未被分配的选手
@@ -114,6 +121,17 @@ public class MatchSessionServiceImpl implements IMatchSessionService
             playerIds = applicantsMapper.selectNotDistribute(matchId, raceSchedule);
         }else{
             //决赛
+            SemiFinals semiFinals = new SemiFinals();
+            semiFinals.setMatchId(matchId);
+            List<SemiFinals> finals = semiFinalsMapper.selectSemiFinalsList(semiFinals);
+            if (finals.isEmpty()){//空  说明复赛信息还未导入
+                result.put("err","复赛信息还未导入,请稍后再试");
+                return result;
+            }else{
+                for (SemiFinals aFinal : finals) {
+                    playerIds.add(aFinal.getPlayerId());
+                }
+            }
         }
 
         //打乱排序
@@ -137,7 +155,13 @@ public class MatchSessionServiceImpl implements IMatchSessionService
             matchSession.setbId(player2);
             row += matchSessionMapper.insertMatchSession(matchSession);
         }
-        return row;
+        if (row > 0){
+            result.put("success","分配成功");
+            return result;
+        }else{
+            result.put("err", "分配失败");
+            return result;
+        }
     }
 
     @Override

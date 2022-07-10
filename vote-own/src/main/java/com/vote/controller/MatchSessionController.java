@@ -1,5 +1,6 @@
 package com.vote.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.vote.domain.Match;
@@ -139,8 +140,11 @@ public class MatchSessionController extends BaseController
     @PostMapping("/autoDistribute")
     @ResponseBody
     public AjaxResult autoDistribute(@RequestParam("matchId") Integer matchId,@RequestParam("raceSchedule")Integer raceSchedule){
-        System.out.println("MatchId:" + matchId);
-        System.out.println("rachSchedule:" + raceSchedule);
-        return toAjax(matchSessionService.autoDistribute(matchId,raceSchedule));
+        HashMap<String, String> map = matchSessionService.autoDistribute(matchId, raceSchedule);
+        if (map.containsKey("err")){
+            return AjaxResult.error(map.get("err"));
+        }else{
+            return AjaxResult.success(map.get("success"));
+        }
     }
 }

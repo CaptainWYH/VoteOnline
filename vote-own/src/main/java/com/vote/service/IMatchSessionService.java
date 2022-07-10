@@ -1,5 +1,6 @@
 package com.vote.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.vote.MatchSessionsVO;
@@ -68,7 +69,7 @@ public interface IMatchSessionService
      * @param raceSchedule
      * @return
      */
-    public int autoDistribute(Integer matchId,Integer raceSchedule);
+    public HashMap<String,String> autoDistribute(Integer matchId, Integer raceSchedule);
 
     /**
      * 查询场次   通过比赛id  赛程
