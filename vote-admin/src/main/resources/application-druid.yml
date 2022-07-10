@@ -6,9 +6,9 @@ spring:
         druid:
             # 主库数据源
             master:
-                url: jdbc:mysql://43.142.18.220:3306/vote_online?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=true&allowMultiQueries=true
-                username: root
-                password: sbu2023
+                url: jdbc:mysql://******:3306/vote_online?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&useSSL=true&allowMultiQueries=true
+                username: *****
+                password: *****
             # 从库数据源
             slave:
                 # 从数据源开关/默认关闭
