@@ -1,5 +1,6 @@
 package com.vote.service.impl;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -115,7 +116,7 @@ public class MatchSessionServiceImpl implements IMatchSessionService
     public HashMap<String,String> autoDistribute(Integer matchId, Integer raceSchedule) {
         HashMap<String,String> result = new HashMap<>();
         int row = 0;
-        List<Integer> playerIds = null;
+        List<Integer> playerIds = new ArrayList<>();
         //查询出未被分配的选手
         if (raceSchedule == 1){//初赛
             playerIds = applicantsMapper.selectNotDistribute(matchId, raceSchedule);
