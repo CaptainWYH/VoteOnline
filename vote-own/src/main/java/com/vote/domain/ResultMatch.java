@@ -33,7 +33,7 @@ public class ResultMatch extends BaseEntity
 
     /** 评委分数 */
     @Excel(name = "评委分数")
-    private Integer judgesScore;
+    private BigDecimal judgesScore;
 
     /** 观众投票数量 */
     @Excel(name = "观众投票数量")
@@ -83,12 +83,12 @@ public class ResultMatch extends BaseEntity
     {
         return playerId;
     }
-    public void setJudgesScore(Integer judgesScore) 
+    public void setJudgesScore(BigDecimal judgesScore)
     {
         this.judgesScore = judgesScore;
     }
 
-    public Integer getJudgesScore() 
+    public BigDecimal getJudgesScore()
     {
         return judgesScore;
     }

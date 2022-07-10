@@ -33,11 +33,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </select>
 
-    <select id="selectBySessionIdAndViewerId" resultType="integer">
+    <select id="selectBySessionIdAndViewerId" resultType="integer" >
         <include refid="selectViewerVoteVo"/>
         <where>
             <if test="sessionId != null "> and session_id = #{sessionId}</if>
             <if test="viewerId != null "> and viewer_id = #{viewerId}</if>
+        </where>
+    </select>
+    <select id="selectCounts" resultType="java.lang.Integer" parameterType="ViewerVote">
+        SELECT COUNT(*) FROM viewer_vote
+        <where>
+            <if test="matchId != null "> and match_id = #{matchId}</if>
+            <if test="raceSchedule != null "> and race_schedule = #{raceSchedule}</if>
+            <if test="sessionId != null "> and session_id = #{sessionId}</if>
+            <if test="playerId != null "> and player_id = #{playerId}</if>
         </where>
     </select>
 

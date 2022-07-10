@@ -61,4 +61,14 @@ public interface ViewerVoteMapper
     public int deleteViewerVoteByIds(String[] ids);
 
     public Integer selectBySessionIdAndViewerId(ViewerVote viewerVote);
+
+
+
+
+    /**
+     * 根据matchId,raceSchedule,场次id在(viewerVote)查出当前场次投票总数
+     * @param viewerVote
+     * @return
+     */
+    public Integer selectCounts(ViewerVote viewerVote);
 }

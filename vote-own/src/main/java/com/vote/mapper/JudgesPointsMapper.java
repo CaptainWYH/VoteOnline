@@ -1,5 +1,6 @@
 package com.vote.mapper;
 
+import java.math.BigDecimal;
 import java.util.List;
 import com.vote.domain.JudgesPoints;
 import com.vote.domain.ViewerVote;
@@ -62,4 +63,5 @@ public interface JudgesPointsMapper
 
     public Integer selectBySessionIdAndJudgesId(JudgesPoints judgesPoints);
 
+    public BigDecimal selectAvgPointsByMatchIdAndRaceSchedleAndPlayerId(JudgesPoints judgesPoints);
 }

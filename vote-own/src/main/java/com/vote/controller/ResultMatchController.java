@@ -1,6 +1,9 @@
 package com.vote.controller;
 
 import java.util.List;
+
+import com.vote.domain.Match;
+import com.vote.service.IMatchService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,10 +37,15 @@ public class ResultMatchController extends BaseController
     @Autowired
     private IResultMatchService resultMatchService;
 
+    @Autowired
+    private IMatchService matchService;
+
     @RequiresPermissions("vote-own:result_match:view")
     @GetMapping()
-    public String result_match()
+    public String result_match(ModelMap map)
     {
+        List<Match> matches = matchService.selectMatchList(new Match());
+        map.put("matches",matches);
         return prefix + "/result_match";
     }
 
