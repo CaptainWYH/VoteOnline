@@ -1,6 +1,8 @@
 
 ## 平台简介
-在线投票系统
+本项目基于若依标准框架搭建的在线投票系统<br>
+前端技术:bootstrap,thymeleaf,js<br>
+后端:spring boot , mybatis<br>
 
 ## 内置功能
 
@@ -35,5 +37,5 @@
 4.普通角色<br/>
 
 ##联系方式
-email:1264787656@qq.com<br/>
+email:weiyuhui918@outlook.com<br/>
 QQ:1264787656<br/>
