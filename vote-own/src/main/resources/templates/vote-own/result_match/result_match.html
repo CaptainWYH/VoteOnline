@@ -98,7 +98,9 @@
                     data: {"matchId":matchId,"raceSchedule":raceSchedule},
                     success: function(r) {
                         $.modal.alert(r.msg);
-                        window.location.reload();
+                        if (r.code != 500){
+                            window.location.reload();
+                        }
                     },
                     beforeSend: function(xhr){
                         //1.发送请求之前执行，最先执行，添加loading一般在这里。
