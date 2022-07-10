@@ -31,8 +31,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </select>
     <select id="selectNotDistribute" resultType="java.lang.Integer">
-        SELECT DISTINCT a.player_id FROM applicants a WHERE a.player_id NOT IN (SELECT m.a_id FROM match_session m WHERE m.`match_id` = #{matchId} AND m.race_schedule = #{raceSchedule})
-                                                        AND a.player_id NOT IN (SELECT m.b_id FROM match_session m WHERE m.`match_id` = #{matchId} AND m.race_schedule = #{raceSchedule})
+        SELECT player_id FROM applicants WHERE match_id = #{matchId} AND race_schedule = #{raceSchedule}
+                                           AND player_id != ALL(SELECT a_id FROM match_session WHERE match_id = #{matchId} AND race_schedule = #{raceSchedule})
+                                            AND player_id != ALL(SELECT b_id FROM match_session WHERE match_id = #{matchId} AND race_schedule = #{raceSchedule})
     </select>
     <select id="selectTitleByApplicants" resultType="java.lang.String">
         select song_title from applicants
