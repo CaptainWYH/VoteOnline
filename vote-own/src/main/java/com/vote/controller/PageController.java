@@ -3,7 +3,6 @@ package com.vote.controller;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.vote.MatchSessionsVO;
-import com.vote.common.config.RuoYiConfig;
 import com.vote.common.core.controller.BaseController;
 import com.vote.common.core.page.TableDataInfo;
 import com.vote.domain.Match;
@@ -27,7 +26,7 @@ import java.util.List;
 
 
 @Controller
-public class HomeController extends BaseController {
+public class PageController extends BaseController {
 
     private String prefix = "vote-own/";
 
@@ -130,6 +129,16 @@ public class HomeController extends BaseController {
     @GetMapping("/res")
     public String competitionResults(){
         return prefix +"competitionResults";
+    }
+
+
+    /**
+     *测试比赛结果页面
+    **/
+
+    @GetMapping("/ctr")
+    public String results(){
+        return  prefix +"competitionResults";
     }
 
 }
