@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-import com.vote.MatchSessionsVO;
+import com.vote.vo.MatchSessionsVO;
 import com.vote.common.core.domain.entity.SysUser;
 import com.vote.domain.Applicants;
 import com.vote.domain.SemiFinals;

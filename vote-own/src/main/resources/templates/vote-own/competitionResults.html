@@ -3,8 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>评委打分</title>
 
 
@@ -30,7 +29,7 @@
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8 h1" style="margin: 20px auto 20px auto ;text-align: center;">
-            <div class="text"><span>第一届ACM大赛</span></div>
+            <div class="text"><span th:text="${matchName}">第一届ACM大赛</span></div>
         </div>
         <div class="col-md-2"></div>
     </div>
@@ -41,7 +40,7 @@
         </div>
         <div class="col-md-8">
             <div class="table-responsive">
-                <table class="table text-nowrap" style="text-align: center">
+                <table class="table table-striped" style="text-align: center">
                     <thead>
                     <tr>
                         <th style="text-align: center">最终排名</th>
@@ -51,17 +50,11 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>表格单元格</td>
-                        <td>表格单元格</td>
-                        <td>表格单元格</td>
-                        <td>表格单元格</td>
-                    </tr>
-                    <tr>
-                        <td>表格单元格</td>
-                        <td>表格单元格</td>
-                        <td>表格单元格</td>
-                        <td>表格单元格</td>
+                    <tr th:each="item,itemStat : ${result}">
+                        <td th:text="${itemStat.count}">表格单元格</td>
+                        <td th:text="${item.playerName}">表格单元格</td>
+                        <td th:text="${item.songTitle}">表格单元格</td>
+                        <td th:text="${item.finalScore}">表格单元格</td>
                     </tr>
                     </tbody>
                 </table>

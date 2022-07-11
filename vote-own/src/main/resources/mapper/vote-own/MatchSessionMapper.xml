@@ -15,7 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="status"    column="status"    />
     </resultMap>
 
-    <resultMap type="com.vote.MatchSessionsVO" id="MatchSessionVOResult">
+    <resultMap type="com.vote.vo.MatchSessionsVO" id="MatchSessionVOResult">
         <result property="id"    column="id"    />
         <result property="matchId"    column="match_id"    />
         <result property="raceSchedule"    column="race_schedule"    />

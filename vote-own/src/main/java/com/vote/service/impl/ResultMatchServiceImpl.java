@@ -2,8 +2,10 @@ package com.vote.service.impl;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.vote.domain.JudgesPoints;
 import com.vote.domain.MatchSession;
@@ -12,12 +14,17 @@ import com.vote.dto.AutoCalculateDTO;
 import com.vote.mapper.JudgesPointsMapper;
 import com.vote.mapper.MatchSessionMapper;
 import com.vote.mapper.ViewerVoteMapper;
+import com.vote.vo.ResultMatchVo;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.vote.mapper.ResultMatchMapper;
 import com.vote.domain.ResultMatch;
 import com.vote.service.IResultMatchService;
 import com.vote.common.core.text.Convert;
+import org.springframework.transaction.annotation.Transactional;
+
+import static java.util.stream.Collectors.averagingInt;
 
 /**
  * 比赛结果Service业务层处理
@@ -170,6 +177,82 @@ public class ResultMatchServiceImpl implements IResultMatchService
         return map;
     }
 
+    List<ViewerVote> listViewerVoteByMatchId(Integer matchId,Integer raceSchedule,Integer sessionId){
+        ViewerVote qo=new ViewerVote();
+        qo.setMatchId(matchId);
+        qo.setRaceSchedule(raceSchedule);
+        qo.setSessionId(sessionId);
+        return viewerVoteMapper.selectViewerVoteList(qo);
+    }
+    List<JudgesPoints> listJudgesPointsByMatchId(Integer matchId,Integer raceSchedule,Integer sessionId){
+        JudgesPoints qo=new JudgesPoints();
+        qo.setMatchId(matchId);
+        qo.setRaceSchedule(raceSchedule);
+        qo.setSessionId(sessionId);
+        return judgesPointsMapper.selectJudgesPointsList(qo);
+    }
+
+
+    boolean saveBatch(Integer matchId,Integer raceSchedule,Integer sessionId,Integer playerA,Integer playerB) {
+        try {
+            List<ViewerVote> allViewerVote=listViewerVoteByMatchId(matchId,raceSchedule,sessionId);
+            List<JudgesPoints> allJudgesPoints=listJudgesPointsByMatchId(matchId,raceSchedule,sessionId);
+
+            List<ViewerVote> vList = allViewerVote.stream()
+                    .filter(x -> x.getPlayerId().equals(playerA))
+                    .collect(Collectors.toList());
+
+            Double avgA = allJudgesPoints.stream()
+                    .filter(x -> x.getPlayerId().equals(playerA))
+                    .collect(averagingInt(JudgesPoints::getPoints));
+
+
+
+
+            //A
+            ResultMatch resultMatch = new ResultMatch();
+            resultMatch.setMatchId(matchId);
+            resultMatch.setRaceSchedule(raceSchedule);
+            resultMatch.setPlayerId(playerA);
+            resultMatch.setJudgesScore(new BigDecimal(avgA));
+            resultMatch.setVoteCount(vList.size());
+            BigDecimal percentA=new BigDecimal(0);
+            if(allViewerVote.size()>0){
+                percentA=new BigDecimal(100.0*resultMatch.getVoteCount()/(allViewerVote.size()*1.0));
+            }
+            resultMatch.setPercent(percentA);
+            resultMatch.setFinalScore(resultMatch.getJudgesScore().add(resultMatch.getPercent()));
+            resultMatchMapper.insertResultMatch(resultMatch);
+
+            //B
+            if (!ObjectUtils.isEmpty(playerB)){
+                Double avgB = allJudgesPoints.stream()
+                        .filter(x -> x.getPlayerId().equals(playerB))
+                        .collect(averagingInt(JudgesPoints::getPoints));
+                resultMatch = new ResultMatch();
+                resultMatch.setMatchId(matchId);
+                resultMatch.setRaceSchedule(raceSchedule);
+                resultMatch.setPlayerId(playerB);
+                resultMatch.setJudgesScore(new BigDecimal(avgB));
+                resultMatch.setVoteCount(allViewerVote.size()-vList.size());
+                BigDecimal percenB=new BigDecimal(0);
+                if(allViewerVote.size()>0){
+                    percenB=new BigDecimal(100.0*resultMatch.getVoteCount()/(allViewerVote.size()*1.0));
+                }
+                resultMatch.setPercent(percenB);
+                resultMatch.setFinalScore(resultMatch.getJudgesScore().add(resultMatch.getPercent()));
+                resultMatchMapper.insertResultMatch(resultMatch);
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+
+
     @Override
     public ResultMatch calculate(ViewerVote viewerVote,
                          JudgesPoints judgesPoints,ResultMatch resultMatch,
@@ -210,5 +293,56 @@ public class ResultMatchServiceImpl implements IResultMatchService
 
         }
         return resultMatch;
+    }
+
+    @Override
+    @Transactional
+    public HashMap<String, String> autoCalculatePlus(AutoCalculateDTO autoCalculateDTO) {
+
+        HashMap<String, String> map = new HashMap<>();
+        MatchSession matchSession = new MatchSession();
+        ResultMatch resultMatch = new ResultMatch();
+        Integer raceSchedule = autoCalculateDTO.getRaceSchedule();
+        Integer matchId = autoCalculateDTO.getMatchId();
+        //赋值
+        resultMatch.setMatchId(matchId);
+        resultMatch.setRaceSchedule(raceSchedule);
+        matchSession.setMatchId(matchId);
+        matchSession.setRaceSchedule(raceSchedule);
+        //先检查是否已经计算过
+        List<ResultMatch> resultMatches = resultMatchMapper.selectResultMatchList(resultMatch);
+        if (!resultMatches.isEmpty()){
+            map.put("err", "该比赛结果已经计算");
+            return map;
+        }
+        //查询出比赛场次
+        List<MatchSession> matchSessions = matchSessionMapper.selectMatchSessionList(matchSession);
+        //如果查不出来  说明还未分配当前的场次
+        if (matchSessions.isEmpty()){
+            map.put("err", "该比赛场次暂未分配,无法计算结果");
+            return map;
+        }
+        try {
+            for (MatchSession session : matchSessions) {
+                Integer id = session.getId();//取出场次id
+                Integer aId = session.getaId();
+                Integer bId = session.getbId();
+                boolean flag = this.saveBatch(matchId, raceSchedule,id, aId, bId);
+                if (flag){
+                    map.put("success","比赛结果计算完毕");
+                    continue;
+                }
+            }
+        }catch (Exception e){
+            map.put("err","计算出错");
+            return map;
+        }finally{
+            return map;
+        }
+    }
+
+    @Override
+    public List<ResultMatchVo> selectResultMatchListByMatchIdAndRaceSchedule(Integer matchId, Integer raceSchedule) {
+        return resultMatchMapper.selectResultMatchListByMatchIdAndRaceSchedule(matchId,raceSchedule);
     }
 }

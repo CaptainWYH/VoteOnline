@@ -2,19 +2,21 @@ package com.vote.controller;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.vote.MatchSessionsVO;
-import com.vote.common.config.RuoYiConfig;
+import com.vote.service.IResultMatchService;
+import com.vote.vo.MatchSessionsVO;
 import com.vote.common.core.controller.BaseController;
 import com.vote.common.core.page.TableDataInfo;
 import com.vote.domain.Match;
 import com.vote.domain.MatchSession;
 import com.vote.service.IMatchService;
 import com.vote.service.IMatchSessionService;
+import com.vote.vo.ResultMatchVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
 import java.util.List;
@@ -27,7 +29,7 @@ import java.util.List;
 
 
 @Controller
-public class HomeController extends BaseController {
+public class PageController extends BaseController {
 
     private String prefix = "vote-own/";
 
@@ -36,6 +38,9 @@ public class HomeController extends BaseController {
 
     @Autowired
     private IMatchSessionService matchSessionService;
+
+    @Autowired
+    private IResultMatchService resultMatchService;
 
     @GetMapping("/system/home/{pageNum}")
     public String home(@PathVariable("pageNum")Integer pageNum, ModelMap mmap)
@@ -50,6 +55,8 @@ public class HomeController extends BaseController {
         System.out.println("主页面"+dataTable);
         mmap.put("pages", page);
         mmap.put("winDate",new Date());
+        List<Match> matches = matchService.selectMatchList(new Match());
+        mmap.put("matches",matches);
         System.out.println("当前时间"+ new Date());
         System.out.println(page);
         return prefix + "UserHome";
@@ -127,9 +134,22 @@ public class HomeController extends BaseController {
     /**
      *测试比赛结果详细界面
      **/
-    @GetMapping("/res")
-    public String competitionResults(){
-        return prefix +"competitionResults";
+    @GetMapping("/res/{matchId}/{raceSchedule}")
+    public String competitionResults(@PathVariable("matchId") Integer matchId,
+                                     @PathVariable("raceSchedule") Integer raceSchedule,
+                                     @RequestParam String matchName,
+                                     ModelMap map){
+        List<ResultMatchVo> resultMatchVos = resultMatchService.selectResultMatchListByMatchIdAndRaceSchedule(matchId, raceSchedule);
+        if (resultMatchVos.isEmpty()){
+            map.put("msg","该比赛结果还未出来");
+            return prefix +"voteNull";
+        }else{
+            map.put("result",resultMatchVos);
+            map.put("matchName",raceSchedule == 1 ? matchName + "---初赛" : matchName + "---决赛");
+            return prefix +"competitionResults";
+        }
+
     }
+
 
 }

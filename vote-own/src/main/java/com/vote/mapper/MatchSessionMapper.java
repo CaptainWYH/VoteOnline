@@ -2,7 +2,7 @@ package com.vote.mapper;
 
 import java.util.List;
 
-import com.vote.MatchSessionsVO;
+import com.vote.vo.MatchSessionsVO;
 import com.vote.domain.MatchSession;
 
 /**

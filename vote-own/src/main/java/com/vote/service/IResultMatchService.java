@@ -8,6 +8,8 @@ import com.vote.domain.MatchSession;
 import com.vote.domain.ResultMatch;
 import com.vote.domain.ViewerVote;
 import com.vote.dto.AutoCalculateDTO;
+import com.vote.vo.ResultMatchVo;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 比赛结果Service接口
@@ -83,4 +85,14 @@ public interface IResultMatchService
     public ResultMatch calculate(ViewerVote viewerVote,
                          JudgesPoints judgesPoints,ResultMatch resultMatch,
                          Integer sessionId, Integer playerId);
+    public HashMap<String,String> autoCalculatePlus(AutoCalculateDTO autoCalculateDTO) throws Exception;
+
+    /**
+     * 查询比赛结果
+     * @param matchId
+     * @param raceSchedule
+     * @return
+     */
+    List<ResultMatchVo> selectResultMatchListByMatchIdAndRaceSchedule(Integer matchId,Integer raceSchedule);
+
 }

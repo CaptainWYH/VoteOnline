@@ -44,6 +44,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </where>
         ORDER BY final_score DESC LIMIT 8;
     </select>
+    <select id="selectResultMatchListByMatchIdAndRaceSchedule" resultType="com.vote.vo.ResultMatchVo">
+        SELECT su.user_name playerName, song_title songTitle, rm.final_score finalScore
+        FROM result_match rm
+                 LEFT JOIN sys_user su ON rm.player_id = su.user_id
+                 LEFT JOIN applicants ap ON rm.player_id = ap.player_id AND rm.match_id = ap.match_id AND
+                                            rm.race_schedule = ap.race_schedule
+        WHERE rm.match_id = #{matchId}
+          AND rm.race_schedule = #{raceSchedule}
+        ORDER BY rm.judges_score DESC
+
+    </select>
 
     <insert id="insertResultMatch" parameterType="ResultMatch" useGeneratedKeys="true" keyProperty="id">
         insert into result_match

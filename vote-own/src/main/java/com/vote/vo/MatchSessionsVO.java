@@ -1,4 +1,4 @@
-package com.vote;
+package com.vote.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.vote.common.annotation.Excel;

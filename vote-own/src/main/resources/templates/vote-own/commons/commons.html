@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>公共模板</title>
+</head>
+<body>
+<!-- 定义公共的左侧菜单，commonMenu 表示片段名称，index 为传递进来的参数-->
+<article>
+    <div th:fragment="commonMenu(index)">
+        <!-- 根据传递的参数 index 来设置当前活动的菜单样式；三元运算符，第三个参数缺省，当 ? 判断为 false 时返回 null-->
+        <!-- 同理如果还有其它更多的菜单时，可以依次往下传递参数-->
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8">
+                <ul class="nav nav-pills justify-content-center shadow-sm p-3 mb-5 bg-white rounded">
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/system/home/1}" th:class="${index}==0 ? 'active': ''">所有比赛</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/jud/1}" th:class="${index}==1?'active' : ''">比赛结果</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
+    <div class="content1">
+
+    </div>
+</article>
+
+
+</body>
+</html>

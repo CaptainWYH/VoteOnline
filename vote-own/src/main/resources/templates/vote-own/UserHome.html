@@ -23,25 +23,43 @@
 
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-2"></div>
+			<div class="col-8 shadow-sm p-3 mb-5 bg-white rounded">
+				<span class="form-group" style="display: inline">
+                    <select class="form-control" style="width: 30%; display: inline" id="choseMatch">
+                        <option value="0">--请选择比赛--</option>
+                        <option th:each="match :${matches}" th:value="${match.matchId}" th:text="${match.matchName}">Java</option>
+                    </select>
+                    <select class="form-control" style="width: 27%; display: inline" id="choseRaceSchedule">
+                        <option value="0">--请选择赛程--</option>
+                        <option value="1">初赛</option>
+                        <option value="2">决赛</option>
+                    </select>
+                </span>
+				<button type="button" id="checkResult" class="btn btn-primary ml-10">查询比赛结果</button>
+			</div>
+			<div class="col-2"></div>
+		</div>
 
 		<!-- 搜索框 -->
-		<div class="row">
-			<div class="col-md-4"></div>
-			<div class="col-md-4" style="margin: 20px auto 20px auto ;">
-				<form action="#" method="" class="bs-example bs-example-form" role="form">
-					<div class="input-group mb-3">
-						<input type="text" class="form-control" style="height: 60px;" placeholder="输入比赛名称进行快速定位搜索"
-							   aria-label="Recipient's username" aria-describedby="basic-addon2" />
-						<span class="input-group-append">
-								<button class="btn btn-primary" type="submit">
-									搜索
-								</button>
-							</span>
-					</div>
-				</form>
-			</div>
-			<div class="col-md-4"></div>
-		</div>
+<!--		<div class="row">-->
+<!--			<div class="col-md-4"></div>-->
+<!--			<div class="col-md-4" style="margin: 20px auto 20px auto ;">-->
+<!--				<form action="#" method="" class="bs-example bs-example-form" role="form">-->
+<!--					<div class="input-group mb-3">-->
+<!--						<input type="text" class="form-control" style="height: 60px;" placeholder="输入比赛名称进行快速定位搜索"-->
+<!--							   aria-label="Recipient's username" aria-describedby="basic-addon2" />-->
+<!--						<span class="input-group-append">-->
+<!--								<button class="btn btn-primary" type="submit">-->
+<!--									搜索-->
+<!--								</button>-->
+<!--							</span>-->
+<!--					</div>-->
+<!--				</form>-->
+<!--			</div>-->
+<!--			<div class="col-md-4"></div>-->
+<!--		</div>-->
 
 
 
@@ -210,6 +228,22 @@
 	<script>
 		$(document).ready(function (){
 			var matchId;
+
+			$("#checkResult").click(function (){
+					var matchId = $("#choseMatch").find('option:selected').val();
+					var matchName = $("#choseMatch").find('option:selected').text();
+					var raceSchedule = $("#choseRaceSchedule").find('option:selected').val();
+					if (matchId == 0){
+						$.modal.alert("请选择比赛");
+						return;
+					}
+					if (raceSchedule == 0){
+						$.modal.alert("请选择赛程");
+						return;
+					}
+				$.modal.open("比赛结果","/res/" + matchId + "/" + raceSchedule + "?matchName=" + matchName,1400,700,null);
+
+			});
 
 			$(".vote-btn").click(function (){
 				matchId = $(this).next().text();

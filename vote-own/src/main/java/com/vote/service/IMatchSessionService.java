@@ -3,7 +3,7 @@ package com.vote.service;
 import java.util.HashMap;
 import java.util.List;
 
-import com.vote.MatchSessionsVO;
+import com.vote.vo.MatchSessionsVO;
 import com.vote.domain.MatchSession;
 
 /**

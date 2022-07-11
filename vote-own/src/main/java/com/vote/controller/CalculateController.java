@@ -27,14 +27,25 @@ public class CalculateController {
     @Autowired
     private ISemiFinalsService semiFinalsService;
 
+
+    /**
+     * 自动计算比赛结果
+     * @param autoCalculateDTO
+     * @return
+     */
     @PostMapping("/calculate")
     @ResponseBody
-    public AjaxResult calculate(AutoCalculateDTO autoCalculateDTO){
-        HashMap<String, String> result = resultMatchService.autoCalculate(autoCalculateDTO);
-        if (result.containsKey("err")){
-            return AjaxResult.error(result.get("err"));
-        }else{
-            return AjaxResult.success("比赛结果计算成功,请检查是否有误");
+    public AjaxResult calculate(AutoCalculateDTO autoCalculateDTO)  {
+        HashMap<String, String> result = null;
+        try {
+            result = resultMatchService.autoCalculatePlus(autoCalculateDTO);
+            if (result.containsKey("err")){
+                return AjaxResult.error(result.get("err"));
+            }else{
+                return AjaxResult.success("比赛结果计算成功,请检查是否有误");
+            }
+        }catch (Exception e){
+            return AjaxResult.error("异常错误");
         }
     }
 

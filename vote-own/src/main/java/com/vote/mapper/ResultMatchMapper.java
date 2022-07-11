@@ -2,6 +2,8 @@ package com.vote.mapper;
 
 import java.util.List;
 import com.vote.domain.ResultMatch;
+import com.vote.vo.ResultMatchVo;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * 比赛结果Mapper接口
@@ -65,4 +67,6 @@ public interface ResultMatchMapper
      * @return
      */
     public List<ResultMatch> selectResultListsLimitPreEight(ResultMatch resultMatch);
+
+    List<ResultMatchVo> selectResultMatchListByMatchIdAndRaceSchedule(@Param("matchId") Integer matchId, @Param("raceSchedule") Integer raceSchedule);
 }
