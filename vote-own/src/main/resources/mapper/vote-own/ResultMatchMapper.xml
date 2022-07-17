@@ -52,7 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                                             rm.race_schedule = ap.race_schedule
         WHERE rm.match_id = #{matchId}
           AND rm.race_schedule = #{raceSchedule}
-        ORDER BY rm.judges_score DESC
+        ORDER BY finalScore DESC
 
     </select>
 

@@ -198,6 +198,7 @@ public class ResultMatchServiceImpl implements IResultMatchService
             List<ViewerVote> allViewerVote=listViewerVoteByMatchId(matchId,raceSchedule,sessionId);
             List<JudgesPoints> allJudgesPoints=listJudgesPointsByMatchId(matchId,raceSchedule,sessionId);
 
+            //过滤技术
             List<ViewerVote> vList = allViewerVote.stream()
                     .filter(x -> x.getPlayerId().equals(playerA))
                     .collect(Collectors.toList());

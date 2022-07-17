@@ -4,6 +4,11 @@
 前端技术:bootstrap,thymeleaf,js<br>
 后端:spring boot , mybatis<br>
 
+管理员账户:admin
+默认密码:admin123
+
+
+请自行下载sql运行项目
 ## 内置功能
 
 1.  用户管理：用户是系统操作者，该功能主要完成系统用户配置。
